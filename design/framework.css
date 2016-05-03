@@ -1,0 +1,10 @@
+body{ background: #f9f9f9; line-height: 1.6 }
+.wrapper{ padding: 10px; }
+
+
+.header{ background: #fff; }
+.header .logo{ width: 100px; height: 40px; background: #eee; }
+.header nav{ font-family: "Microsoft YaHei", sans-serif; font-size: 0; }
+.header nav a{ font-size: 14px; margin: 3px 10px; display: inline-block; padding: 6px 20px; background: #7799bb; color: #fff; border-radius: 34px; }
+
+.sidebar{ width: 300px; }

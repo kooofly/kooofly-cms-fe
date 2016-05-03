@@ -1,0 +1,42 @@
+var $prev = 'manage'
+var $api = 'api'
+
+# Create/Update Model [Page]
+
+API:
+---
+Create $prev/model/create
+$api/role/model
+method: POST
+---
+Read
+$api/role/model/
+[$api/role/model/:id 废弃 直接从查询参数中获取]
+method: GET
+---
+Update $prev/model/update/:id
+$api/role/model
+method: PUT
+---
+
+
+# Create/Update Catagory [Page]
+$prev/同上
+
+# Create/Update Content [Page]
+$prev/同上
+
+# Create/Update Role [Page]
+$prev/同上
+
+# Create/Update User [Page]
+$prev/同上
+
+# Create/Update Model-Article [Page]
+$prev/同上
+
+# Create/Update Model-Link [Page]
+$prev/同上
+
+# Create/Update Model-Catagory-extension [Page]
+$prev/catagory/extension
