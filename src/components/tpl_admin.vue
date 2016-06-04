@@ -14,7 +14,8 @@
             return {
                 parentId: '',
                 activeNav: {},
-                nav: []
+                nav: [],
+                menu: []
             }
         },
         watch: {

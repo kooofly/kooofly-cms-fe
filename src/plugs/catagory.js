@@ -1,7 +1,6 @@
 import config from '../common/config'
-export  default {
+export default {
     sidebar: function(params) {
-        //this.initSidebar(params)
         var self = this,
             module = params.module,
             uri = config.sidebarUri[params.module]

@@ -10,6 +10,11 @@
     export default {
         name: 'tree',
         props: ['model', 'root'],
+        data () {
+            return {
+                treeData: []
+            }
+        },
         watch: {
             model: function(newVal) {
                 var treeData = this.dataTranslater(newVal, { root: this.$get('root') })

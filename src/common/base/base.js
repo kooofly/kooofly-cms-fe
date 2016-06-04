@@ -51,7 +51,7 @@ export default {
             }*/
 
             //404 检测
-            if(!transition.to.fullPath){
+            if(!transition.to.matched){
                 console.log(transition)
                 //修复404 退回问题
                 fromPath && router.replace(fromPath);

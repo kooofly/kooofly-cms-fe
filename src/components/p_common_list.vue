@@ -25,7 +25,7 @@
         <div class="main media-body">
             <div class="row handlers">
                 <div class="col-md-12">
-                    <a v-if="parentId" v-link="{ path: '/' + module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
+                    <a v-if="parentId" v-link="{ path: '/admin/' + module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
                     <a v-else v-link="{ path: module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
                     <a href="javascript:;" class="btn btn-danger btn-radius">批量删除</a>
                 </div>
@@ -42,7 +42,10 @@
     export default {
         props: ['activeNav'],
         data() {
-            console.log(this)
+            return {
+                module: {},
+                parentId: ''
+            }
         },
         watch: {
             activeNav: function(newVal, oldVal) {
