@@ -70,6 +70,7 @@
         },
         watch: {
             columns: function(newVal) {
+                if (!newVal) return
                 var sortOrders = {}
                 newVal.forEach(function(key) {
                     sortOrders[key.field] = 1
