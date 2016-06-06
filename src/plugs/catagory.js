@@ -18,19 +18,6 @@ export default {
         })
     },
     list: function(params) {
-        var self = this
-        var uri = config.listUri[params.module],
-            pid = params.id
-        this.$set('module', params.module)
-        this.$set('parentId', pid)
-        this.$set('listColumns', config.listColumns[params.module])
-        this.$http.get({
-            url: uri,
-            data: {
-                parentId: pid
-            }
-        }).then(function(res) {
-            self.$set('listData', res.data)
-        })
+        this.initList(params)
     }
 }

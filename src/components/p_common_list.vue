@@ -25,8 +25,8 @@
         <div class="main media-body">
             <div class="row handlers">
                 <div class="col-md-12">
-                    <a v-if="parentId" v-link="{ path: '/admin/' + module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
-                    <a v-else v-link="{ path: module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
+                    <a v-if="parentId" v-link="{ path: '/admin/' + this.$route.params.module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
+                    <a v-else v-link="{ path: this.$route.params.module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
                     <a href="javascript:;" class="btn btn-danger btn-radius">批量删除</a>
                 </div>
             </div>
@@ -43,7 +43,6 @@
         props: ['activeNav'],
         data() {
             return {
-                module: {},
                 parentId: ''
             }
         },
@@ -119,13 +118,17 @@
                 })
             },
             initList: function(params) {
-                var self = this,
-                    module = params.module,
-                    uri = config.apiRoot + module
-                this.$set('module', params.module)
+                var self = this
+                var module = params.module
+                var uri = config.apiRoot + module
+                var pid = params.id
 
+                this.$set('parentId', pid)
                 this.$http.get({
-                    url: uri
+                    url: uri,
+                    data: {
+                        parentId: pid
+                    }
                 }).then(function(res) {
                     self.$set('listColumns', config.listColumns[module])
                     self.$set('listData', res.data)

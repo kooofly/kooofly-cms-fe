@@ -9,6 +9,7 @@
     import V_number from './control/number.vue'
     import V_select from './control/select.vue'
     import V_groupFields from './control/group-fields.vue'
+    import V_groupApis from './control/group-apis.vue'
     export default {
         props: {
             attrs: {
@@ -61,7 +62,8 @@
             V_fieldsInfo,
             V_number,
             V_select,
-            V_groupFields
+            V_groupFields,
+            V_groupApis
         }
     }
 </script>

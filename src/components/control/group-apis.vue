@@ -4,7 +4,7 @@
             <span class="control-label">&nbsp;</span>
         </div>
         <div class="media-body">
-            <button class="btn btn-block" @click="addField()">添加字段</button>
+            <button class="btn btn-block" @click="addField()">添加API</button>
             <div class="body" v-for="item in model">
                 <a class="close" @click="deleteField(item)" href="javascript:;">×</a>
                 <label class="media media-middle">
@@ -47,7 +47,7 @@
                         <span class="control-label">控件数据</span>
                     </div>
                     <div class="media-body">
-                        <textarea class="form-control" name="control.data" v-model="item.control.data | json"></textarea>
+                        <textarea class="form-control" name="control.data" v-model="item.control.data"></textarea>
                     </div>
                 </label>
                 <label class="media media-middle">
@@ -56,9 +56,9 @@
                     </div>
                     <div class="media-body">
                         <select name="attribute.type" v-model="item.attribute.type" class="form-control">
-                            <option value="Int">Int</option>
-                            <option value="Double">Double</option>
-                            <option value="String">String</option>
+                            <option value="text">Int</option>
+                            <option value="textarea">Double</option>
+                            <option value="select">String</option>
                             <option value="rich_textarea">.etc</option>
                         </select>
                     </div>

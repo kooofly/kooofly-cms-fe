@@ -94,6 +94,11 @@
             },
             checkbox: function(value, rowData) {
                 return '<input type="checkbox" value="' + value + '" />'
+            },
+            linkToEdit: function(value, rowData) {
+                var module = this.$route.params.module
+                var path = this.$route.path
+                return '<a href="/#!' + path + '/' + rowData._id + '/update' + '">' + value + '</a>'
             }
         }
     }

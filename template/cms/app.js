@@ -27,6 +27,7 @@ var dynRouter = {
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.http.options.crossOrigin = true
 Vue.filter('isOrNot', function(value) {
     return value ? '<span class="bg bg-success">是</span>' : '<span class="bg bg-danger">否</span>'
 })
