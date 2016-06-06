@@ -2,10 +2,19 @@ import common from '../../src/common/base/base'
 import commonRouter from '../../src/common/router'
 import Tpl_admin from '../../src/components/tpl_admin.vue'
 import CommonList from '../../src/components/p_common_list.vue'
-import CommonCreate from '../../src/components/p_common_edit.vue'
-import CommonUpdate from '../../src/components/p_common_edit.vue'
+import CommonEdit from '../../src/components/p_common_edit.vue'
 
-
+//区分编辑和添加
+var CommonCreate = common.mix({}, CommonEdit)
+CommonCreate.props = common.mix({}, CommonCreate.props, { action: {
+    type: String,
+    default: 'save'
+} })
+var CommonUpdate = common.mix({}, CommonEdit)
+CommonUpdate.props = common.mix({}, CommonUpdate.props, { action: {
+    type: String,
+    default: 'update'
+} })
 function routerBase(prev) {
     var result = {}
     result[prev + '/:module'] = {

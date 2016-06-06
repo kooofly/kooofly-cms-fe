@@ -21,7 +21,6 @@ export default {
         var self = this
         var uri = config.listUri[params.module],
             pid = params.id
-        this.$set('module', params.module)
         this.$set('parentId', pid)
         this.$set('listColumns', config.listColumns[params.module])
         this.$http.get({

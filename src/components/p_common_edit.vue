@@ -47,7 +47,7 @@
                     <v-controls v-for="item in layoutData.fields" :attrs="item" :model.sync="model[item.name]"></v-controls>
                 </div>
                 <div class="footer text-right">
-                    <button class="btn btn-primary">提交</button>
+                    <button class="btn btn-primary" @click="execAction()">提交</button>
                 </div>
             </div>
 
@@ -60,7 +60,9 @@
     import Tree from './tree.vue'
     import VControls from './common_controls.vue'
     export default {
-        props: ['activeNav'],
+        props: {
+            activeNav: {}
+        },
         data() {
             return {
                 layoutData: {},
@@ -68,7 +70,6 @@
                 model: {},
                 sidebarRoot: '',
                 sidebarModel: {},
-                module: ''
             }
         },
         watch: {
@@ -131,12 +132,73 @@
                 var self = this,
                         module = params.module,
                         uri = config.modelUri + module
-                this.$set('module', params.module)
-
                 this.$http.get({
                     url: uri
                 }).then(function(res) {
-                    self.$set('layoutData', res.data[0])
+                    var layoutData = res.data[0]
+                    var array = []
+                    //过滤只读字段
+                    if (layoutData && layoutData.fields) {
+                        layoutData.fields.forEach(function (v, i) {
+                            if (!v.control) return
+                            array.push(v)
+                        })
+
+                    }
+                    layoutData.fields = array
+                    self.layoutData = layoutData
+                })
+
+                if(this.action === 'update') {
+                    this.$http.get({
+                        url: config.apiRoot + module,
+                        data: {
+                            _id: this.$route.params.id
+                        }
+                    }).then(function (res) {
+                        var model = res.data[0]
+                        var array = []
+                        //过滤只读字段
+                        if (model && model.fields) {
+                            model.fields.forEach(function (v, i) {
+                                if (!v.control) return
+                                array.push(v)
+                            })
+
+                        }
+                        model.fields = array
+                        self.model = model
+                    })
+                }
+            },
+            execAction () {
+                var module = this.$route.params.module
+                var resource = this.action === 'save' ? this.$resource(config.apiRoot + module) : this.$resource(config.apiRoot + module + '?_id=' + this.$route.params.id)
+                var mock = {
+                    parentId: "5754ea84dc29080822000014",
+                    alias: '添加的猫',
+                    name: '添加的猫',
+                    isEnable: true
+                }
+                var mock2 = {
+                    name: 'test561',
+                    collectionName: 'test2',
+                    fields: [
+                        {
+                            name: 'testF',
+                            attribute: { type: 'String' },
+                            control: {
+                                name: 'text',
+                                label: 'testHAHA'
+                            }
+                        }
+                    ],
+                    isEnable: true
+                }
+                resource[this.action](mock2).then(function (res) {
+                    console.log('success', res)
+                }, function (res) {
+                    console.log('error', res)
                 })
             }
         },

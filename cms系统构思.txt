@@ -72,3 +72,7 @@ next.判断API是否存在
 next.是否拥有该API权限
 end.执行
 
+
+编辑功能
+智能建表 template 建表
+前端验证
