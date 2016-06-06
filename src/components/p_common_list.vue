@@ -44,7 +44,11 @@
         data() {
             return {
                 module: {},
-                parentId: ''
+                parentId: '',
+                listColumns: [],
+                listData: [],
+                sidebarRoot: '',
+                sidebarModel: ''
             }
         },
         watch: {

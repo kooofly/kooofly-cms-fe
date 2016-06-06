@@ -13,7 +13,7 @@ import Index from '../../src/components/p_index.vue'
 
 export default {
     data () {
-
+        return {}
     },
     components: {
 //        Index

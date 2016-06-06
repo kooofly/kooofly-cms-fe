@@ -24,10 +24,10 @@
 
   export default {
     props: ['nav', 'active'],
-    data() {
-
+    data () {
+        return {}
     },
-    ready() {
+    ready () {
       console.log('header', this)
     },
     methods: {

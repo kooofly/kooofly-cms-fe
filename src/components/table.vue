@@ -55,6 +55,10 @@
             filterKey: ''
         },
         data() {
+            return {
+                sortOrders: {},
+                sortKey: ''
+            }
             /*var sortOrders = {}
             this.columns.forEach(function(key) {
                 sortOrders[key] = 1
