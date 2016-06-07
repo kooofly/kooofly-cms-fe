@@ -3,11 +3,13 @@
 </template>
 <script>
     import V_text from './control/text.vue'
+    import V_password from './control/password.vue'
     import V_upload from './control/upload.vue'
     import V_radioBoolean from './control/radio-boolean.vue'
     import V_fieldsInfo from './control/fields-info.vue'
     import V_number from './control/number.vue'
     import V_select from './control/select.vue'
+    import V_textarea from './control/textarea.vue'
     import V_groupFields from './control/group-fields.vue'
     import V_groupApis from './control/group-apis.vue'
     export default {
@@ -33,6 +35,7 @@
             if (typeof control === 'string') {
                 this.attrs.control = {}
                 this.attrs.control.name = control
+                this.attrs.control.label = this.attrs.name
             } else if (typeof control === 'object') {
                 if (!control.label) {
                     control.label = this.attrs.name
@@ -57,11 +60,13 @@
         },
         components: {
             V_text,
+            V_password,
             V_upload,
             V_radioBoolean,
             V_fieldsInfo,
             V_number,
             V_select,
+            V_textarea,
             V_groupFields,
             V_groupApis
         }

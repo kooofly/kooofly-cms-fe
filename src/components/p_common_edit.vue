@@ -141,6 +141,9 @@
                     if (layoutData && layoutData.fields) {
                         layoutData.fields.forEach(function (v, i) {
                             if (!v.control) return
+                            if (v.control.default) {
+                                self.model[v.name] = v.control.default
+                            }
                             array.push(v)
                         })
 
@@ -195,7 +198,7 @@
                     ],
                     isEnable: true
                 }
-                resource[this.action](mock2).then(function (res) {
+                resource[this.action](this.model).then(function (res) {
                     console.log('success', res)
                 }, function (res) {
                     console.log('error', res)

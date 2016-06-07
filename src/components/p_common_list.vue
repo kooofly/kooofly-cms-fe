@@ -23,7 +23,7 @@
         </div>
 
         <div class="main media-body">
-            <div class="row handlers">
+            <div id="" class="row handlers">
                 <div class="col-md-12">
                     <a v-if="parentId" v-link="{ path: '/admin/' + this.$route.params.module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
                     <a v-else v-link="{ path: this.$route.params.module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
@@ -43,6 +43,7 @@
         props: ['activeNav'],
         data() {
             return {
+                areas: ['area_list_handlers'],
                 parentId: '',
                 listColumns: [],
                 listData: [],
@@ -89,6 +90,7 @@
         methods: {
             initMod: function(params) {
                 var plug = plugs[params.module]
+                this.initAreas(this.areas)
                 if(!plug) {
                     this.initSidebar(params)
                     this.initList(params)
@@ -137,6 +139,36 @@
                     self.$set('listColumns', config.listColumns[module])
                     self.$set('listData', res.data)
                 })
+            },
+            initAreas: function(areas) {
+                if (!areas) return
+                var self = this
+                areas.forEach(function (v, i) {
+                    self.$http.get({
+                        url: config.systemconfigUri,
+                        data: {
+                            code: v
+                        }
+                    }).then(function (res) {
+                        var data = res.data[0]
+                        var module = self.$route.params.module
+                        var config = data.config[module] ? data.config[module] : data.config.default
+                        console.log('area config', config)
+                        return
+                        self[config.method](config.params)
+                    })
+                })
+                var a = {
+                    "default": {
+                        "method": "handler"
+                    },
+                    "content": {
+                        "method": "handler_content",
+                        "params": ["article", "link"]
+                    }
+                }
+
+
             }
         },
         components: {

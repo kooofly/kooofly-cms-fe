@@ -4,7 +4,7 @@
             <span class="control-label">{{attrs.control.label}}</span>
         </div>
         <div class="media-body">
-            <input class="form-control" placeholder="number" :name="attrs.name" v-model="model" type="text"/>
+            <input class="form-control" placeholder="number" :name="attrs.name" v-model="model" type="number"/>
         </div>
     </label>
 </template>

@@ -59,6 +59,7 @@
                             <option value="Int">Int</option>
                             <option value="Double">Double</option>
                             <option value="String">String</option>
+                            <option value="Object">Object</option>
                             <option value="rich_textarea">.etc</option>
                         </select>
                     </div>
