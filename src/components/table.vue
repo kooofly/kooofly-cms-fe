@@ -103,7 +103,8 @@
             linkToEdit: function(value, rowData) {
                 var module = this.$route.params.module
                 var path = this.$route.path
-                return '<a href="/#!' + path + '/' + rowData._id + '/update' + '">' + value + '</a>'
+                var href = this.$route.params.moduleParent ? '/#!/admin/' + module + '/' + rowData._id + '/update' :'/#!' + path + '/' + rowData._id + '/update'
+                return '<a href="' + href + '">' + value + '</a>'
             }
         }
     }

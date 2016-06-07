@@ -25,8 +25,10 @@
         <div class="main media-body">
             <div id="" class="row handlers">
                 <div class="col-md-12">
+                    <v-dropdown :attrs="mockattrs"></v-dropdown>
                     <a v-if="parentId" v-link="{ path: '/admin/' + this.$route.params.module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
                     <a v-else v-link="{ path: this.$route.params.module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
+
                     <a href="javascript:;" class="btn btn-danger btn-radius">批量删除</a>
                 </div>
             </div>
@@ -39,6 +41,7 @@
     import plugs from '../plugs/plugs'
     import Tree from './tree.vue'
     import VTable from './table.vue'
+    import VDropdown from './widget/dropdown.vue'
     export default {
         props: ['activeNav'],
         data() {
@@ -48,7 +51,14 @@
                 listColumns: [],
                 listData: [],
                 sidebarRoot: '',
-                sidebarModel: ''
+                sidebarModel: '',
+                mockattrs: {
+                    name: '添加内容',
+                    data: [
+                        { link: '1', text: '添加文章'},
+                        { link: '2', text: '添加链接'}
+                    ]
+                }
             }
         },
         watch: {
@@ -151,11 +161,13 @@
                         }
                     }).then(function (res) {
                         var data = res.data[0]
-                        var module = self.$route.params.module
-                        var config = data.config[module] ? data.config[module] : data.config.default
-                        console.log('area config', config)
-                        return
-                        self[config.method](config.params)
+                        if (data) {
+                            var module = self.$route.params.module
+                            var config = data.config[module] ? data.config[module] : data.config.default
+                            console.log('area config', config)
+                            return
+                            self[config.method](config.params)
+                        }
                     })
                 })
                 var a = {
@@ -173,7 +185,8 @@
         },
         components: {
             Tree,
-            VTable
+            VTable,
+            VDropdown
         }
     }
 </script>
