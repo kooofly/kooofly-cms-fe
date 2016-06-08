@@ -33,7 +33,7 @@
                     <a class="btn btn-success btn-block btn-radius" href="javascript:;">一个自定义Link</a>
                 </div>
                 <ul class="tree tree-root">
-                    <tree :model.sync="sidebarModel" :root.sync="sidebarRoot"></tree>
+                    <tree :model.sync="sidebar.data" :root.sync="sidebar.root"></tree>
                 </ul>
             </aside>
         </div>
