@@ -78,3 +78,6 @@ systemconfig list应用
 批量删除
 智能建表 template 建表
 前端验证
+
+widget params 特殊字符 定义
+:module = this.$route.params.module

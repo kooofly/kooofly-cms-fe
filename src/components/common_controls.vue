@@ -6,10 +6,11 @@
     import V_password from './control/password.vue'
     import V_upload from './control/upload.vue'
     import V_radioBoolean from './control/radio-boolean.vue'
-    import V_fieldsInfo from './control/fields-info.vue'
+    import V_groupInfo from './control/group-info.vue'
     import V_number from './control/number.vue'
     import V_select from './control/select.vue'
     import V_textarea from './control/textarea.vue'
+    import V_textareaRich from './control/textarea-rich.vue'
     import V_groupFields from './control/group-fields.vue'
     import V_groupApis from './control/group-apis.vue'
     export default {
@@ -63,12 +64,13 @@
             V_password,
             V_upload,
             V_radioBoolean,
-            V_fieldsInfo,
+            V_groupInfo,
             V_number,
             V_select,
             V_textarea,
             V_groupFields,
-            V_groupApis
+            V_groupApis,
+            V_textareaRich
         }
     }
 </script>

@@ -1,4 +1,6 @@
 "use strict";
+import config from '../config'
+import store from '../store'
 export default {
     mix: function(o) {
         var i = 1,
@@ -94,6 +96,83 @@ export default {
             router.go('/500');
         })
         console.log(http);
+    },
+    initMod: function(plugs, params) {
+        var module = params.module
+        var plug = plugs[module]
+        // 默认module
+        this.sidebar.module = this.$route.path.split('/')[2]
+        this.mainData && (this.mainData.module = module)
+        if(this.systemConfig) {
+            this.systemConfig.module = module
+            this.initSystemConfig(this.systemConfig)
+        }
+        if(!plug) {
+            this.initSidebar(params)
+            this.initMain(params)
+        } else {
+            for (var fn in plug) {
+                plug[fn].call(this, params)
+            }
+        }
+    },
+    initSidebar: function(params) {
+        var self = this,
+            uri = config.sidebarUri['menu'],
+            sidebarRoot = this.activeNav._id,
+            module = self.sidebar.module
+        this.$set('sidebar.root', sidebarRoot)
+        this.$http.get({
+            url: uri,
+            data: {
+                parentId: sidebarRoot
+            }
+        }).then(function(res) {
+            var sidebarData = []
+            res.data.forEach(function(v, i) {
+                var link = '#!/'+ config.admin + module + '/' + (v.alias ? v.alias : v._id)
+                v.link = v.link || link
+                sidebarData.push(v)
+            })
+
+            self.$set('sidebar.data', sidebarData)
+        })
+    },
+    initSystemConfig: function(systemConfig) {
+        var self = this
+        var systemConfigData = systemConfig.data
+        for (var key in systemConfigData) {
+            var code = systemConfigData[key].code
+            if (code) {
+                self.$http.get({
+                    url: config.systemconfigUri,
+                    data: {
+                        code: code
+                    }
+                }).then(function (res) {
+                    var result = res.data[0]
+                    var cfg
+                    if (result) {
+                        var module = systemConfig.module
+                        var data = result.config.data
+                        var defaults = data.default
+                        var moduleData = data[module]
+                        if (moduleData) {
+                            var extend = moduleData.extend
+                            if (extend) {
+                                cfg = defaults.widgets.concat(moduleData.controls)
+                            } else {
+                                cfg = moduleData.widgets
+                            }
+                        } else {
+                            cfg = defaults.widgets
+                        }
+                        self.systemConfig.data[key].config = cfg
+                        console.log('area config', cfg)
+                    }
+                })
+            }
+        }
     }
 
 }

@@ -41,10 +41,10 @@
         <div class="main media-body">
             <div class="panel form">
                 <div class="title">
-                    新建/编辑 {{layoutData.name}}
+                    新建/编辑 {{mainRenderData.name}}
                 </div>
                 <div class="body">
-                    <v-controls v-for="item in layoutData.fields" :attrs="item" :model.sync="model[item.name]"></v-controls>
+                    <v-controls v-for="item in mainRenderData.fields" :attrs="item" :model.sync="model[item.name]"></v-controls>
                 </div>
                 <div class="footer text-right">
                     <button class="btn btn-primary" @click="execAction()">提交</button>
@@ -55,21 +55,28 @@
     </div>
 </template>
 <script>
+    import util from '../common/base/base'
+    import store from '../common/store'
     import config from '../common/config'
     import plugs from '../plugs/plugs'
     import Tree from './tree.vue'
     import VControls from './common_controls.vue'
     export default {
-        props: {
-            activeNav: {}
-        },
         data() {
             return {
-                layoutData: {},
-                controlRenderData: {},
-                model: {},
-                sidebarRoot: '',
-                sidebarModel: {},
+                sidebar: {
+                    // 数据模块
+                    module: '',
+                    root: '',
+                    data: []
+                },
+                mainRenderData: {},
+                model: {}
+            }
+        },
+        computed: {
+            activeNav () {
+                return store.state.activeNav
             }
         },
         watch: {
@@ -87,7 +94,7 @@
         init: function() {
             console.log('cedit', this)
             this.$on('dataReady', function() {
-                var activeNav = this.$get('activeNav'),
+                var activeNav = store.state.activeNav,
                         params = this.$route.params
                 if(!activeNav) return
                 this.initMod(params)
@@ -95,38 +102,10 @@
         },
         methods: {
             initMod: function(params) {
-                var plug = plugs[params.module + '_edit']
-                if(!plug) {
-                    this.initSidebar(params)
-                    this.initMain(params)
-                } else {
-                    for (var fn in plug) {
-                        plug[fn].call(this, params)
-                    }
-                }
+                util.initMod.call(this, plugs, params)
             },
             initSidebar: function(params) {
-                var self = this,
-                        uri = config.sidebarUri['menu'],
-                        parentId = self.$get('activeNav')._id,
-                        path = this.$route.path,
-                        module = path.split('/')[2]
-                this.$set('sidebarRoot', parentId)
-                this.$http.get({
-                    url: uri,
-                    data: {
-                        parentId: parentId
-                    }
-                }).then(function(res) {
-                    var sidebarModel = []
-                    res.data.forEach(function(v, i) {
-                        var link = '#!/'+ config.admin + module + '/' + (v.alias ? v.alias : v._id)
-                        v.link = v.link || link
-                        sidebarModel.push(v)
-                    })
-
-                    self.$set('sidebarModel', sidebarModel)
-                })
+                util.initSidebar.call(this, params)
             },
             initMain: function(params) {
                 var self = this,
@@ -135,11 +114,11 @@
                 this.$http.get({
                     url: uri
                 }).then(function(res) {
-                    var layoutData = res.data[0]
+                    var mainRenderData = res.data[0]
                     var array = []
                     //过滤只读字段
-                    if (layoutData && layoutData.fields) {
-                        layoutData.fields.forEach(function (v, i) {
+                    if (mainRenderData && mainRenderData.fields) {
+                        mainRenderData.fields.forEach(function (v, i) {
                             if (!v.control) return
                             if (v.control.default) {
                                 self.model[v.name] = v.control.default
@@ -148,8 +127,8 @@
                         })
 
                     }
-                    layoutData.fields = array
-                    self.layoutData = layoutData
+                    mainRenderData.fields = array
+                    self.mainRenderData = mainRenderData
                 })
 
                 if(this.action === 'update') {

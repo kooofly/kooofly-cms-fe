@@ -1,7 +1,7 @@
 import config from '../common/config'
 import catagory from './catagory'
 export default {
-    sidebar: catagory.sidebar,
+    initSidebar: catagory.initSidebar,
     initMain: function(params) {
         this.initMain(params)
     }

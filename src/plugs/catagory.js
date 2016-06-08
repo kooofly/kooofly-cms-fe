@@ -1,23 +1,23 @@
 import config from '../common/config'
 export default {
-    sidebar: function(params) {
+    initSidebar: function(params) {
         var self = this,
             module = params.module,
             uri = config.sidebarUri[params.module]
         this.$http.get({
             url: uri
         }).then(function(res) {
-            var sidebarModel = []
+            var sidebarData = []
             res.data.forEach(function(v, i) {
                 var link = '#!/'+ config.admin + module + '/' + v._id + '/' + 'catagory'
                 v.link = v.link || link
-                sidebarModel.push(v)
+                sidebarData.push(v)
             })
-            self.$set('sidebarRoot', undefined)
-            self.$set('sidebarModel', sidebarModel)
+            self.$set('sidebar.root', undefined)
+            self.$set('sidebar.data', sidebarData)
         })
     },
-    list: function(params) {
-        this.initList(params)
+    initMain: function(params) {
+        this.initMain(params)
     }
 }

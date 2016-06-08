@@ -2,7 +2,8 @@
     .progress-top{ position: absolute; width: 100%; top: 0; left: 0; }
     .table{ width: 100%; }
     .handlers{ padding: 10px; background: #fff; }
-
+    .handlers .btn{ margin-left: 10px; }
+    .handlers .btn:first-child{ margin-left: 0; }
     .sidebar{ width: 300px; }
     .sidebar .customArea{ background: #fff; padding: 10px; text-align: center; margin-bottom: 20px; }
     .sidebar .customArea .btn{ margin: 0 0 0px; }
@@ -17,7 +18,7 @@
                     <a class="btn btn-success btn-block btn-radius" href="javascript:;">一个自定义Link</a>
                 </div>
                 <ul class="tree tree-root">
-                    <tree :model.sync="sidebarModel" :root.sync="sidebarRoot"></tree>
+                    <tree :model.sync="sidebar.data" :root.sync="sidebar.root"></tree>
                 </ul>
             </aside>
         </div>
@@ -25,40 +26,57 @@
         <div class="main media-body">
             <div id="" class="row handlers">
                 <div class="col-md-12">
-                    <v-dropdown :attrs="mockattrs"></v-dropdown>
-                    <a v-if="parentId" v-link="{ path: '/admin/' + this.$route.params.module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
-                    <a v-else v-link="{ path: this.$route.params.module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
-
-                    <a href="javascript:;" class="btn btn-danger btn-radius">批量删除</a>
+                    <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
             </div>
-            <v-table :data.sync="listData" :columns.sync="listColumns"></v-table>
+            <v-table :data.sync="mainData.data" :columns.sync="mainData.columns"></v-table>
         </div>
     </div>
 </template>
 <script>
+    import util from '../common/base/base'
+    import store from '../common/store'
     import config from '../common/config'
     import plugs from '../plugs/plugs'
     import Tree from './tree.vue'
     import VTable from './table.vue'
     import VDropdown from './widget/dropdown.vue'
+    import VWidgets from './common_widgets.vue'
     export default {
-        props: ['activeNav'],
         data() {
             return {
-                areas: ['area_list_handlers'],
-                parentId: '',
-                listColumns: [],
-                listData: [],
-                sidebarRoot: '',
-                sidebarModel: '',
-                mockattrs: {
-                    name: '添加内容',
-                    data: [
-                        { link: '1', text: '添加文章'},
-                        { link: '2', text: '添加链接'}
-                    ]
+                // 左侧菜单
+                sidebar: {
+                    // 数据模块
+                    module: '',
+                    root: '',
+                    data: []
+                },
+                mainData: {
+                    module: '',
+                    // 查询条件
+                    searchOption: {},
+                    // 表头
+                    columns: [],
+                    // 数据
+                    data: []
+                },
+                // 系统配置项
+                systemConfig: {
+                    module: '',
+                    data: {
+                        handlers: {
+                            code: 'area_list_handlers',
+                            config: {}
+                        }
+                    }
+
                 }
+            }
+        },
+        computed: {
+            activeNav () {
+                return store.state.activeNav
             }
         },
         watch: {
@@ -75,23 +93,9 @@
                 this.initMod(params)*/
             }
         },
-        filters: {
-            addText: function(v) {
-                var module = this.$route.params.module,
-                    menu = this.$parent.$get('menu')
-                if(menu && menu.length) {
-                    for (var i = 0, j = menu.length; i < j; i++) {
-                        if(menu[i].alias === module) {
-                            return v + menu[i].name.replace('管理', '')
-                        }
-                    }
-                    return v
-                }
-            }
-        },
         init: function() {
             this.$on('dataReady', function() {
-                var activeNav = this.$get('activeNav'),
+                var activeNav = store.state.activeNav,
                     params = this.$route.params
                 if(!activeNav) return
                 this.initMod(params)
@@ -99,94 +103,35 @@
         },
         methods: {
             initMod: function(params) {
-                var plug = plugs[params.module]
-                this.initAreas(this.areas)
-                if(!plug) {
-                    this.initSidebar(params)
-                    this.initList(params)
-                } else {
-                    for (var fn in plug) {
-                        plug[fn].call(this, params)
-                    }
-                }
+                util.initMod.call(this, plugs, params)
             },
             initSidebar: function(params) {
-                var self = this,
-                    uri = config.sidebarUri['menu'],
-                    parentId = self.$get('activeNav')._id,
-                    path = this.$route.path,
-                    module = path.split('/')[2]
-                this.$set('sidebarRoot', parentId)
-                this.$http.get({
-                    url: uri,
-                    data: {
-                        parentId: parentId
-                    }
-                }).then(function(res) {
-                    var sidebarModel = []
-                    res.data.forEach(function(v, i) {
-                        var link = '#!/'+ config.admin + module + '/' + (v.alias ? v.alias : v._id)
-                        v.link = v.link || link
-                        sidebarModel.push(v)
-                    })
-
-                    self.$set('sidebarModel', sidebarModel)
-                })
+                util.initSidebar.call(this, params)
             },
-            initList: function(params) {
+            initMain: function(params) {
                 var self = this
-                var module = params.module
+                var module = self.mainData.module
                 var uri = config.apiRoot + module
                 var pid = params.id
-
-                this.$set('parentId', pid)
                 this.$http.get({
                     url: uri,
                     data: {
                         parentId: pid
                     }
                 }).then(function(res) {
-                    self.$set('listColumns', config.listColumns[module])
-                    self.$set('listData', res.data)
+                    self.$set('mainData.columns', config.listColumns[module])
+                    self.$set('mainData.data', res.data)
                 })
             },
-            initAreas: function(areas) {
-                if (!areas) return
-                var self = this
-                areas.forEach(function (v, i) {
-                    self.$http.get({
-                        url: config.systemconfigUri,
-                        data: {
-                            code: v
-                        }
-                    }).then(function (res) {
-                        var data = res.data[0]
-                        if (data) {
-                            var module = self.$route.params.module
-                            var config = data.config[module] ? data.config[module] : data.config.default
-                            console.log('area config', config)
-                            return
-                            self[config.method](config.params)
-                        }
-                    })
-                })
-                var a = {
-                    "default": {
-                        "method": "handler"
-                    },
-                    "content": {
-                        "method": "handler_content",
-                        "params": ["article", "link"]
-                    }
-                }
-
-
+            initSystemConfig: function(systemConfig) {
+                util.initSystemConfig.call(this, systemConfig)
             }
         },
         components: {
             Tree,
             VTable,
-            VDropdown
+            VDropdown,
+            VWidgets
         }
     }
 </script>
