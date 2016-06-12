@@ -168,7 +168,6 @@ export default {
                             cfg = defaults.widgets
                         }
                         self.systemConfig.data[key].config = cfg
-                        console.log('area config', cfg)
                     }
                 })
             }

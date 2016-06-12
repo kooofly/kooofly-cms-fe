@@ -4,7 +4,7 @@
   "description": "A cms solution based on vuejs",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --quiet",
+    "dev": "webpack-dev-server --inline --hot --quiet --port 8090",
     "start": "node server/index.js",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
