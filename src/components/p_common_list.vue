@@ -26,6 +26,7 @@
         <div class="main media-body">
             <div id="" class="row handlers">
                 <div class="col-md-12">
+                    <button class="btn" @click="initMain(this.$route.params)">abc</button>
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
             </div>
@@ -116,6 +117,8 @@
                 this.$http.get({
                     url: uri,
                     data: {
+                        _limit: 10,
+                        _page: 1,
                         parentId: pid
                     }
                 }).then(function(res) {
