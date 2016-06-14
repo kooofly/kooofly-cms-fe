@@ -31,6 +31,7 @@
                 </div>
             </div>
             <v-table :data.sync="mainData.data" :columns.sync="mainData.columns"></v-table>
+            <v-pagination></v-pagination>
         </div>
     </div>
 </template>
@@ -43,6 +44,7 @@
     import VTable from './table.vue'
     import VDropdown from './widget/dropdown.vue'
     import VWidgets from './common_widgets.vue'
+    import VPagination from './widget/pagination.vue'
     export default {
         data() {
             return {
@@ -134,7 +136,8 @@
             Tree,
             VTable,
             VDropdown,
-            VWidgets
+            VWidgets,
+            VPagination
         }
     }
 </script>
