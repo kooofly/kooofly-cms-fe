@@ -32,7 +32,6 @@ export default {
         systemconfig: [
             { name: '#', field: '_id', render: 'checkbox' },
             { name: 'Code', field: 'code', render: 'linkToEdit' },
-            { name: '类型', field: 'type' },
             { name: '描述', field: 'description'  }
         ],
         article: [

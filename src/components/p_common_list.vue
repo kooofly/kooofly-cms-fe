@@ -8,6 +8,8 @@
     .sidebar .customArea{ background: #fff; padding: 10px; text-align: center; margin-bottom: 20px; }
     .sidebar .customArea .btn{ margin: 0 0 0px; }
     .sidebar .customArea .btn:last-child{ margin: 0; }
+    .table-footer{ padding: 10px; text-align: right; background: #fff; line-height: 1; }
+    .table-footer .pagination{ vertical-align: middle; }
 </style>
 <template>
 
@@ -30,8 +32,12 @@
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
             </div>
-            <v-table :data.sync="mainData.data" :columns.sync="mainData.columns"></v-table>
-            <v-pagination></v-pagination>
+            <div style="min-height: 472px;">
+                <v-table :data.sync="mainData.data" :columns.sync="mainData.columns"></v-table>
+            </div>
+            <div class="table-footer">
+                <v-pagination :limit="mainData.searchOption.limit" :page.sync="mainData.searchOption.page"></v-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -58,7 +64,10 @@
                 mainData: {
                     module: '',
                     // 查询条件
-                    searchOption: {},
+                    searchOption: {
+                        limit: 10,
+                        page: 1
+                    },
                     // 表头
                     columns: [],
                     // 数据
@@ -87,6 +96,12 @@
                 if(newVal._id !== oldVal._id) {
                     this.$emit('dataReady')
                 }
+            },
+            'mainData.searchOption': {
+                handler () {
+                    this.initMain(this.$route.params)
+                },
+                deep: true
             }
         },
         route: {
@@ -119,8 +134,8 @@
                 this.$http.get({
                     url: uri,
                     data: {
-                        _limit: 10,
-                        _page: 1,
+                        /*_limit: self.mainData.searchOption.limit,
+                        _page: self.mainData.searchOption.page,*/
                         parentId: pid
                     }
                 }).then(function(res) {
