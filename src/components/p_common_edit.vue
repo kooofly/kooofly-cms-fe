@@ -133,12 +133,12 @@
 
                 if(this.action === 'update') {
                     this.$http.get({
-                        url: util.getUri.call(this, module, 'c_update_model'),
+                        url: util.getUri.call(this, module, 'c_update_model', '?_single=1'),
                         data: {
                             _id: this.$route.params.id
                         }
                     }).then(function (res) {
-                        var model = res.data[0]
+                        var model = res.data
                         var array = []
                         //过滤只读字段
                         if (model && model.fields) {

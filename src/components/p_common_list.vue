@@ -121,7 +121,8 @@
         },
         methods: {
             initMod: function(params) {
-                util.initMod.call(this, plugs, params)
+                store.dispatch('MAINDATA_MODULE', params.module)
+                util.initMod.call(this, plugs, params, store)
             },
             initSidebar: function(params) {
                 util.initSidebar.call(this, params)

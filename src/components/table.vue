@@ -101,9 +101,8 @@
                 return '<input type="checkbox" value="' + value + '" />'
             },
             linkToEdit: function(value, rowData) {
-                var module = this.$route.params.module
-                var path = this.$route.path
-                var href = this.$route.params.moduleParent ? '/#!/admin/' + module + '/' + rowData._id + '/update' :'/#!' + path + '/' + rowData._id + '/update'
+                var module = this.$route.params.mainData_module || this.$route.params.module
+                var href = '/#!/admin/' + module + '/' + rowData._id + '/update'
                 return '<a href="' + href + '">' + value + '</a>'
             },
             link_blank: function (value, rowData) {

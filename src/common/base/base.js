@@ -97,7 +97,7 @@ export default {
         })
         console.log(http);
     },
-    initMod: function(plugs, params) {
+    initMod: function(plugs, params, store) {
         var module = params.module
         var plug = plugs[module]
         // 默认module
@@ -112,7 +112,7 @@ export default {
             this.initMain(params)
         } else {
             for (var fn in plug) {
-                plug[fn].call(this, params)
+                plug[fn].call(this, params, store)
             }
         }
     },
@@ -173,12 +173,12 @@ export default {
             }
         }
     },
-    getUri: function (module, action) {
+    getUri: function (module, action, params) {
         var result
         if(config.module[module] && config.module[module][action]) {
             result = config.module[module][action]
         } else {
-            result = config.apiRoot + module
+            result = config.apiRoot + module + params
         }
          return result
     }
