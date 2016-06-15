@@ -172,6 +172,14 @@ export default {
                 })
             }
         }
+    },
+    getUri: function (module, action) {
+        var result
+        if(config.module[module] && config.module[module][action]) {
+            result = config.module[module][action]
+        } else {
+            result = config.apiRoot + module
+        }
+         return result
     }
-
 }

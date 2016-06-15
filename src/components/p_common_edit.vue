@@ -133,7 +133,7 @@
 
                 if(this.action === 'update') {
                     this.$http.get({
-                        url: config.apiRoot + module,
+                        url: util.getUri.call(this, module, 'c_update_model'),
                         data: {
                             _id: this.$route.params.id
                         }
@@ -155,7 +155,8 @@
             },
             execAction () {
                 var module = this.$route.params.module
-                var resource = this.action === 'save' ? this.$resource(config.apiRoot + module) : this.$resource(config.apiRoot + module + '?_id=' + this.$route.params.id)
+                // config.apiRoot + module
+                var resource = this.action === 'save' ? this.$resource(util.getUri.call(this, module, 'c_create')) : this.$resource(config.apiRoot + module + '?_id=' + this.$route.params.id)
                 var mock = {
                     parentId: "5754ea84dc29080822000014",
                     alias: '添加的猫',

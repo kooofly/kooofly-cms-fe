@@ -105,6 +105,9 @@
                 var path = this.$route.path
                 var href = this.$route.params.moduleParent ? '/#!/admin/' + module + '/' + rowData._id + '/update' :'/#!' + path + '/' + rowData._id + '/update'
                 return '<a href="' + href + '">' + value + '</a>'
+            },
+            link_blank: function (value, rowData) {
+                return '<a href="' + value + '" target="_blank">' + value + '</a>'
             }
         }
     }

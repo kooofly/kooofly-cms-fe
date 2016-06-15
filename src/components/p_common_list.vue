@@ -139,7 +139,11 @@
                         parentId: pid
                     }
                 }).then(function(res) {
-                    self.$set('mainData.columns', config.listColumns[module])
+                    if(config.module[module] && config.module[module]['l_columns']) {
+                        self.$set('mainData.columns', config.module[module]['l_columns'])
+                    } else {
+                        console.log('config error: module ' + module + ' l_columns error')
+                    }
                     self.$set('mainData.data', res.data)
                 })
             },
