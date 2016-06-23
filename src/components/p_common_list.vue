@@ -64,8 +64,8 @@
                     module: '',
                     // 查询条件
                     searchOption: {
-                        /*limit: 10,
-                        page: 1*/
+                        limit: 10,
+                        page: 1
                     },
                     // 表头
                     columns: [],
