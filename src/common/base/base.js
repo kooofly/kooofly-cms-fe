@@ -117,6 +117,7 @@ export default {
         }
     },
     initSidebar: function(params) {
+        console.log('initSidebar', this)
         var self = this,
             uri = config.sidebarUri['menu'],
             sidebarRoot = this.activeNav._id,
@@ -178,7 +179,12 @@ export default {
         if(config.module[module] && config.module[module][action]) {
             result = config.module[module][action]
         } else {
-            result = config.apiRoot + module + params
+            if (params) {
+                result = config.apiRoot + module + params
+            } else {
+                result = config.apiRoot + module
+            }
+
         }
          return result
     }

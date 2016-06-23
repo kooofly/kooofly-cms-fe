@@ -64,8 +64,8 @@
                     module: '',
                     // 查询条件
                     searchOption: {
-                        limit: 10,
-                        page: 1
+                        /*limit: 10,
+                        page: 1*/
                     },
                     // 表头
                     columns: [],
@@ -120,7 +120,6 @@
         },
         methods: {
             initMod: function(params) {
-                store.dispatch('MAINDATA_MODULE', params.module)
                 util.initMod.call(this, plugs, params, store)
             },
             initSidebar: function(params) {
@@ -134,8 +133,8 @@
                 this.$http.get({
                     url: uri,
                     data: {
-                        /*_limit: self.mainData.searchOption.limit,
-                        _page: self.mainData.searchOption.page,*/
+                        _limit: self.mainData.searchOption.limit,
+                        _page: self.mainData.searchOption.page,
                         parentId: pid
                     }
                 }).then(function(res) {

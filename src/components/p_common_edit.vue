@@ -146,9 +146,9 @@
                                 if (!v.control) return
                                 array.push(v)
                             })
-
+                            model.fields = array
                         }
-                        model.fields = array
+
                         self.model = model
                     })
                 }
@@ -156,28 +156,9 @@
             execAction () {
                 var module = this.$route.params.module
                 // config.apiRoot + module
-                var resource = this.action === 'save' ? this.$resource(util.getUri.call(this, module, 'c_create')) : this.$resource(config.apiRoot + module + '?_id=' + this.$route.params.id)
-                var mock = {
-                    parentId: "5754ea84dc29080822000014",
-                    alias: '添加的猫',
-                    name: '添加的猫',
-                    isEnable: true
-                }
-                var mock2 = {
-                    name: 'test561',
-                    collectionName: 'test2',
-                    fields: [
-                        {
-                            name: 'testF',
-                            attribute: { type: 'String' },
-                            control: {
-                                name: 'text',
-                                label: 'testHAHA'
-                            }
-                        }
-                    ],
-                    isEnable: true
-                }
+                var resource = this.action === 'save' ?
+                        this.$resource(util.getUri.call(this, module, 'c_create')) :
+                        this.$resource(util.getUri.call(this, module, 'c_update') + '?_id=' + this.$route.params.id)
                 resource[this.action](this.model).then(function (res) {
                     console.log('success', res)
                 }, function (res) {
