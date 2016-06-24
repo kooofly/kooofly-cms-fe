@@ -40,7 +40,7 @@
         | filterBy filterKey
         | orderBy sortKey sortOrders[sortKey]">
             <td v-for="key in columns">
-                {{{ render(entry[key.field], entry, key) }}}
+                <v-render :value="entry[key.field]" :row-data.sync="entry" :render="key.render"></v-render>
             </td>
         </tr>
         </tbody>
@@ -48,6 +48,8 @@
 </template>
 <script>
     //columns: [{ name: '', field: '', render: '' }],data: []
+    //{{{ render(entry[key.field], entry, key) }}}
+    import VRender from './render/_index.vue'
     export default {
         props: {
             data: [],
@@ -107,7 +109,20 @@
             },
             link_blank: function (value, rowData) {
                 return '<a href="' + value + '" target="_blank">' + value + '</a>'
+            },
+            adminLink: function (value, rowData) {
+                return value ? value : '<span class="text-helper">/#!/admin/' + rowData.alias + '</span>'
+            },
+            option: function(value, rowData) {
+                var module = this.$route.params.module
+                return '<a @click="abc()" class="text-danger action-delete">删除</a>'
+            },
+            abc: function () {
+                console.log(1)
             }
+        },
+        components: {
+            VRender
         }
     }
 </script>

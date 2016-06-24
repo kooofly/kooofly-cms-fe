@@ -13,7 +13,7 @@
 </style>
 <template>
 
-    <div class="media">
+    <div class="media media-top">
         <div class="media-left">
             <aside class="sidebar">
                 <div class="customArea">
@@ -45,10 +45,10 @@
     import store from '../common/store'
     import config from '../common/config'
     import plugs from '../plugs/plugs'
-    import Tree from './tree.vue'
-    import VTable from './table.vue'
+    import Tree from './com/tree.vue'
+    import VTable from './com/table.vue'
     import VDropdown from './widget/dropdown.vue'
-    import VWidgets from './common_widgets.vue'
+    import VWidgets from './widgets/_index.vue'
     import VPagination from './widget/pagination.vue'
     export default {
         data() {

@@ -6,18 +6,3 @@
 <template>
     <router-view></router-view>
 </template>
-
-<script>
-import VHeader from '../../src/components/header.vue'
-import Index from '../../src/components/p_index.vue'
-
-export default {
-    data () {
-        return {}
-    },
-    components: {
-//        Index
-        VHeader
-    }
-}
-</script>

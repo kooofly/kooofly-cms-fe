@@ -2,9 +2,9 @@
     <component :attrs="attrs.params" :is="currentCom"></component>
 </template>
 <script>
-    import V_dropdown from './widget/dropdown.vue'
-    import V_buttonCreate from './widget/button-create.vue'
-    import V_buttonBatch_delete from './widget/button-batch_delete.vue'
+    import V_dropdown from './dropdown.vue'
+    import V_buttonCreate from './button-create.vue'
+    import V_buttonBatch_delete from './button-batch_delete.vue'
     export default {
         props: {
             attrs: {

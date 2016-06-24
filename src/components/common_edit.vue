@@ -26,7 +26,7 @@
     .branch .sub-group{ margin-top: 10px; }
 </style>
 <template>
-    <div class="media">
+    <div class="media media-top">
         <div class="media-left">
             <aside class="sidebar">
                 <div class="customArea">
@@ -59,8 +59,8 @@
     import store from '../common/store'
     import config from '../common/config'
     import plugs from '../plugs/plugs'
-    import Tree from './tree.vue'
-    import VControls from './common_controls.vue'
+    import Tree from './com/tree.vue'
+    import VControls from './controls/_index.vue'
     export default {
         data() {
             return {

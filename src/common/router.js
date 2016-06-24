@@ -1,7 +1,7 @@
-import _404 from '../components/p_bad_404.vue'
-import _500 from '../components/p_bad_500.vue'
-import Forbidden from '../components/p_bad_forbidden.vue'
-import Placeholder from '../components/p_bad_placeholder.vue'
+import _404 from '../components/bad_404.vue'
+import _500 from '../components/bad_500.vue'
+import Forbidden from '../components/bad_forbidden.vue'
+import Placeholder from '../components/bad_placeholder.vue'
 
 export default {
     '/404': {

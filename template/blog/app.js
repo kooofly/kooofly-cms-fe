@@ -8,7 +8,7 @@ import commonRouter from '../../src/common/router'
 import App from './app.vue'
 
 //page
-import Index from '../../src/components/p_index.vue'
+import Index from '../../src/components/index.vue'
 
 
 Vue.use(VueRouter)

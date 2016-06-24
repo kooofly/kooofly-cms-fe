@@ -8,8 +8,7 @@
 </template>
 <script>
     import config from '../common/config'
-    import VHeader from './header.vue'
-    import Sidebar from './sidebar.vue'
+    import VHeader from './com/header.vue'
     import store from '../common/store'
     export default {
         data() {
@@ -71,8 +70,7 @@
             }
         },
         components: {
-            VHeader,
-            Sidebar
+            VHeader
         }
     }
 </script>

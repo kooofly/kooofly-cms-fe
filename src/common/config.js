@@ -15,7 +15,7 @@ export default {
                 { name: '#', field: '_id', render: 'checkbox' },
                 { name: '图片', field: 'logo', render: 'picture' },
                 { name: '名称', field: 'title', render: 'linkToEdit' },
-                { name: '链接', field: 'link', render: 'link_blank' },
+                { name: '链接', field: 'link', render: 'blank' },
                 { name: '打开方式', field: 'openMode' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
             ]
@@ -36,6 +36,7 @@ export default {
                 { name: 'owner', field: 'owner' },
                 { name: 'type', field: 'type' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' },
+                { name: '操作', field: '_id', render: 'options' }
             ]
         },
         catagory: {
@@ -58,7 +59,7 @@ export default {
                 { name: '#', field: '_id', render: 'checkbox' },
                 { name: '名称', field: 'name', render: 'linkToEdit' },
                 { name: '别名', field: 'alias' },
-                { name: '链接', field: 'link' },
+                { name: '链接', field: 'link', render: 'adminLink' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
             ]
         }

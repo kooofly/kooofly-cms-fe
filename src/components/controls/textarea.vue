@@ -4,7 +4,7 @@
             <span class="control-label">{{attrs.control.label}}</span>
         </div>
         <div class="media-body">
-            <textarea class="form-control" name="attrs.name" :placeholder="attrs.control.placeholder" cols="30" rows="6" v-model="model | json"></textarea>
+            <textarea class="form-control" :name="attrs.name" :placeholder="attrs.control.placeholder" cols="30" rows="6" v-model="model | json"></textarea>
         </div>
     </label>
 </template>

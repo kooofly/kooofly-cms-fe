@@ -2,17 +2,17 @@
     <component :attrs="attrs" :model.sync="model" :is="currentCom"></component>
 </template>
 <script>
-    import V_text from './control/text.vue'
-    import V_password from './control/password.vue'
-    import V_upload from './control/upload.vue'
-    import V_radioBoolean from './control/radio-boolean.vue'
-    import V_groupInfo from './control/group-info.vue'
-    import V_number from './control/number.vue'
-    import V_select from './control/select.vue'
-    import V_textarea from './control/textarea.vue'
-    import V_textareaRich from './control/textarea-rich.vue'
-    import V_groupFields from './control/group-fields.vue'
-    import V_groupApis from './control/group-apis.vue'
+    import V_text from './text.vue'
+    import V_password from './password.vue'
+    import V_upload from './upload.vue'
+    import V_radioBoolean from './radio-boolean.vue'
+    import V_groupInfo from './group-info.vue'
+    import V_number from './number.vue'
+    import V_select from './select.vue'
+    import V_textarea from './textarea.vue'
+    import V_textareaRich from './textarea-rich.vue'
+    import V_groupFields from './group-fields.vue'
+    import V_groupApis from './group-apis.vue'
     export default {
         props: {
             attrs: {
