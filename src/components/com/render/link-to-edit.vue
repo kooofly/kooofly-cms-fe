@@ -2,6 +2,7 @@
     <a :href="link">{{value}}</a>
 </template>
 <script>
+    import util from '../../../common/base/base'
     export default {
         props: {
             value: {},
@@ -16,7 +17,7 @@
             }
         },
         ready () {
-            var module = this.$route.params.mainData_module || this.$route.params.module
+            var module = util.getModule('main', this)
             var result = '/#!/admin/' + module + '/' + this.rowData._id + '/update'
             this.link = result
             return result

@@ -8,9 +8,9 @@ export default {
     module: {
         link: {
             // 创建新数据 保存接口
-            c_create: root + 'link?_map=catagory_content_link',
+            c_create: root + 'link?_map=catagory_link_content',
             // 更新的时候 渲染的数据
-            c_update_model: root + 'link?_map=catagory_content_link',
+            c_update_model: root + 'link?_map=catagory_link_content',
             l_columns: [
                 { name: '#', field: '_id', render: 'checkbox' },
                 { name: '图片', field: 'logo', render: 'picture' },
@@ -44,7 +44,8 @@ export default {
                 { name: '#', field: '_id', render: 'checkbox' },
                 { name: '名称', field: 'name', render: 'linkToEdit' },
                 { name: '别名', field: 'alias' },
-                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' },
+                { name: '操作', field: '_id', render: 'options', className: 'option' }
             ]
         },
         systemconfig: {

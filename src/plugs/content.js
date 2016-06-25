@@ -3,8 +3,8 @@ export default {
     setModule: function (params, store) {
         this.systemConfig.module = 'content'
         // mainData默认module为article
-        params.mainData_module = 'link'
-        this.mainData.module = params.mainData_module
+        params.main = {}
+        this.main.module = params.main.module = 'link'
     },
     initSidebar: function(params) {
         var self = this,

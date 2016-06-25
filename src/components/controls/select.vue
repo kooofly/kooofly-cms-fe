@@ -5,7 +5,7 @@
             <span class="control-label">{{attrs.control.label}}</span>
         </div>
         <div class="media-body">
-            <select name="attrs.name" class="form-control" v-model="model">
+            <select :name="attrs.name" class="form-control" v-model="model">
                 <option v-for="item in renderData" value="{{item.value}}">{{item.text}}</option>
             </select>
         </div>

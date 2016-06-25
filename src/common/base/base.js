@@ -102,7 +102,7 @@ export default {
         var plug = plugs[module]
         // 默认module
         this.sidebar.module = this.$route.path.split('/')[2]
-        this.mainData && (this.mainData.module = module)
+        this.main && (this.main.module = module)
         if(this.systemConfig) {
             this.systemConfig.module = module
             this.initSystemConfig(this.systemConfig)
@@ -176,7 +176,7 @@ export default {
     },
     getUri: function (module, action, params) {
         var result
-        if(config.module[module] && config.module[module][action]) {
+        if (config.module[module] && config.module[module][action]) {
             result = config.module[module][action]
         } else {
             if (params) {
@@ -187,5 +187,12 @@ export default {
 
         }
          return result
+    },
+    getModule: function (modelArea, inst) {
+        var result = inst.$route.params.module
+        if (inst.$route.params.main && inst.$route.params.main.module) {
+            result = inst.$route.params.main.module
+        }
+        return result
     }
 }

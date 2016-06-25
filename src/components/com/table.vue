@@ -19,6 +19,7 @@
         border-right: 4px solid transparent;
         border-top: 4px solid #5cb85c;
     }
+    .option { width: 80px; }
 </style>
 <template>
     <table class="table">
@@ -26,7 +27,7 @@
         <tr>
             <th v-for="key in columns"
                 @click="sortBy(key.field)"
-                :class="{active: sortKey == key.field}">
+                class="{{key.className}}" :class="{active: sortKey == key.field}" >
                 {{key.name}}
           <span class="arrow"
                 :class="sortOrders[key.field] > 0 ? 'asc' : 'dsc'">
@@ -49,6 +50,7 @@
 <script>
     //columns: [{ name: '', field: '', render: '' }],data: []
     //{{{ render(entry[key.field], entry, key) }}}
+    import util from '../../common/base/base'
     import VRender from './render/_index.vue'
     export default {
         props: {
@@ -103,7 +105,7 @@
                 return '<input type="checkbox" value="' + value + '" />'
             },
             linkToEdit: function(value, rowData) {
-                var module = this.$route.params.mainData_module || this.$route.params.module
+                var module = util.getMode('main', this)
                 var href = '/#!/admin/' + module + '/' + rowData._id + '/update'
                 return '<a href="' + href + '">' + value + '</a>'
             },

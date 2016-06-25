@@ -31,11 +31,11 @@
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
             </div>
-            <div style="min-height: 472px;">
-                <v-table :data.sync="mainData.data" :columns.sync="mainData.columns"></v-table>
+            <div style="min-height: 472px; background: #fff; border-bottom: 1px solid  #f1f1f1;">
+                <v-table :data.sync="main.data" :columns.sync="main.columns"></v-table>
             </div>
             <div class="table-footer">
-                <v-pagination :limit="mainData.searchOption.limit" :page.sync="mainData.searchOption.page"></v-pagination>
+                <v-pagination :limit="main.searchOption.limit" :page.sync="main.searchOption.page"></v-pagination>
             </div>
         </div>
     </div>
@@ -47,9 +47,8 @@
     import plugs from '../plugs/plugs'
     import Tree from './com/tree.vue'
     import VTable from './com/table.vue'
-    import VDropdown from './widget/dropdown.vue'
     import VWidgets from './widgets/_index.vue'
-    import VPagination from './widget/pagination.vue'
+    import VPagination from './widgets/pagination.vue'
     export default {
         data() {
             return {
@@ -60,7 +59,7 @@
                     root: '',
                     data: []
                 },
-                mainData: {
+                main: {
                     module: '',
                     // 查询条件
                     searchOption: {
@@ -96,7 +95,7 @@
                     this.$emit('dataReady')
                 }
             },
-            'mainData.searchOption': {
+            'main.searchOption': {
                 handler () {
                     this.initMain(this.$route.params)
                 },
@@ -127,33 +126,37 @@
             },
             initMain: function(params) {
                 var self = this
-                var module = self.mainData.module
+                var module = self.main.module
                 var uri = config.apiRoot + module
                 var pid = params.id
                 this.$http.get({
                     url: uri,
                     data: {
-                        _limit: self.mainData.searchOption.limit,
-                        _page: self.mainData.searchOption.page,
+                        _limit: self.main.searchOption.limit,
+                        _page: self.main.searchOption.page,
                         parentId: pid
                     }
                 }).then(function(res) {
                     if(config.module[module] && config.module[module]['l_columns']) {
-                        self.$set('mainData.columns', config.module[module]['l_columns'])
+                        self.$set('main.columns', config.module[module]['l_columns'])
                     } else {
                         console.log('config error: module ' + module + ' l_columns error')
                     }
-                    self.$set('mainData.data', res.data)
+                    self.$set('main.data', res.data)
                 })
             },
             initSystemConfig: function(systemConfig) {
                 util.initSystemConfig.call(this, systemConfig)
             }
         },
+        events: {
+            refreshMain () {
+                this.initMain(this.$route.params)
+            }
+        },
         components: {
             Tree,
             VTable,
-            VDropdown,
             VWidgets,
             VPagination
         }
