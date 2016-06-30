@@ -1,5 +1,5 @@
 <template>
-    <div class="media media-middle">
+    <div class="media">
         <div class="media-left">
             <span class="control-label">&nbsp;</span>
         </div>
@@ -7,7 +7,7 @@
             <button class="btn btn-block" @click="addField()">添加字段</button>
             <div class="body" v-for="item in model">
                 <a class="close" @click="deleteField(item)" href="javascript:;">×</a>
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">字段名称</span>
                     </div>
@@ -16,7 +16,7 @@
                     </div>
                 </label>
 
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">控件类型</span>
                     </div>
@@ -34,7 +34,7 @@
                         </select>
                     </div>
                 </label>
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">控件Label</span>
                     </div>
@@ -42,7 +42,7 @@
                         <input class="form-control" v-model="item.control.label" name="control.label" placeholder="字段key" type="text"/>
                     </div>
                 </label>
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">控件数据</span>
                     </div>
@@ -50,7 +50,7 @@
                         <textarea class="form-control" name="control.data" v-model="item.control.data | json"></textarea>
                     </div>
                 </label>
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">数据类型</span>
                     </div>
@@ -64,7 +64,7 @@
                         </select>
                     </div>
                 </label>
-                <label class="media media-middle">
+                <label class="media">
                     <div class="media-left">
                         <span class="control-label">字段描述</span>
                     </div>

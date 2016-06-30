@@ -1,9 +1,9 @@
 import common from '../../src/common/base/base'
 import commonRouter from '../../src/common/router'
 import Index from '../../src/components/index.vue'
-import Admin from '../../src/components/admin.vue'
-import CommonList from '../../src/components/common_list.vue'
-import CommonEdit from '../../src/components/common_edit.vue'
+import Admin from '../../src/components/admin/admin.vue'
+import CommonList from '../../src/components/admin/common_list.vue'
+import CommonEdit from '../../src/components/admin/common_edit.vue'
 
 //区分编辑和添加
 var CommonCreate = common.mix({}, CommonEdit)
@@ -46,6 +46,6 @@ export default {
     },
     '/admin': {
         component: Admin,
-        subRoutes : common.mix({}, commonRouter, routerBase(''), routerBase('/system'))
+        subRoutes : common.mix({}, commonRouter, routerBase(''), routerBase('/system'), routerBase('/content'))
     }
 }

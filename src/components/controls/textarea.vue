@@ -1,5 +1,5 @@
 <template>
-    <label class="media media-middle">
+    <label class="media media-top">
         <div class="media-left">
             <span class="control-label">{{attrs.control.label}}</span>
         </div>

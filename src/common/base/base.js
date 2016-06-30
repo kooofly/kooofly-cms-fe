@@ -131,7 +131,7 @@ export default {
         }).then(function(res) {
             var sidebarData = []
             res.data.forEach(function(v, i) {
-                var link = '#!/'+ config.admin + module + '/' + (v.alias ? v.alias : v._id)
+                var link = '/'+ config.admin + module + '/' + (v.alias ? v.alias : v._id)
                 v.link = v.link || link
                 sidebarData.push(v)
             })

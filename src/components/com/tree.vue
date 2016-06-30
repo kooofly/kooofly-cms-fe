@@ -1,7 +1,12 @@
+<style>
+    .tree-root a.active{ background: #ebebeb; }
+    .tree-root a.active:hover{ background: #ebebeb; color: #7799bb; }
+</style>
 <template>
     <li v-for="item in treeData">
         <!--<a v-link="{ name: prev, params:{ id: item._id, page: 'list' }}">{{item.name}}</a>-->
-        <a href="{{item.link}}">{{item.name}}</a>
+        <a v-link="{ path: item.link, exact:true, activeClass: 'active' }">{{item.name}}</a>
+        <!--<a href="{{item.link}}">{{item.name}}</a>-->
         <tree-children :model.sync="item.children"></tree-children>
     </li>
 </template>

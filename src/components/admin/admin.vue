@@ -7,9 +7,9 @@
     <router-view v-ref:content></router-view>
 </template>
 <script>
-    import config from '../common/config'
-    import VHeader from './com/header.vue'
-    import store from '../common/store'
+    import config from '../../common/config'
+    import VHeader from '../com/header.vue'
+    import store from '../../common/store'
     export default {
         data() {
             return {

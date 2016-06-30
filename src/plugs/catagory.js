@@ -9,11 +9,11 @@ export default {
         }).then(function(res) {
             var sidebarData = []
             res.data.forEach(function(v, i) {
-                var link = '#!/'+ config.admin + module + '/' + v._id + '/' + 'catagory'
+                var link = '/'+ config.admin + module + '/' + v._id + '/' + 'catagory'
                 v.link = v.link || link
                 sidebarData.push(v)
             })
-            self.$set('sidebar.root', undefined)
+            self.$set('sidebar.root',  null)
             self.$set('sidebar.data', sidebarData)
         })
     },

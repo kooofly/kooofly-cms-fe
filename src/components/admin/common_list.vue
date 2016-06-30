@@ -1,6 +1,7 @@
 <style>
     .progress-top{ position: absolute; width: 100%; top: 0; left: 0; }
     .table{ width: 100%; }
+    .form-search { background: #fff; margin-bottom: 10px; }
     .handlers{ padding: 10px; background: #fff; }
     .handlers .btn{ margin-left: 10px; }
     .handlers .btn:first-child{ margin-left: 0; }
@@ -26,7 +27,14 @@
         </div>
 
         <div class="main media-body">
-            <div id="" class="row handlers">
+            <form class="panel form-search">
+                <div class="panel-body row">
+                    <div class="col-md-4">123</div>
+                    <div class="col-md-4">123</div>
+                    <div class="col-md-4">123</div>
+                </div>
+            </form>
+            <div class="row handlers">
                 <div class="col-md-12">
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
@@ -41,14 +49,14 @@
     </div>
 </template>
 <script>
-    import util from '../common/base/base'
-    import store from '../common/store'
-    import config from '../common/config'
-    import plugs from '../plugs/plugs'
-    import Tree from './com/tree.vue'
-    import VTable from './com/table.vue'
-    import VWidgets from './widgets/_index.vue'
-    import VPagination from './widgets/pagination.vue'
+    import util from '../../common/base/base'
+    import store from '../../common/store'
+    import config from '../../common/config'
+    import plugs from '../../plugs/plugs'
+    import Tree from '../com/tree.vue'
+    import VTable from '../com/table.vue'
+    import VWidgets from '../widgets/_index.vue'
+    import VPagination from '../widgets/pagination.vue'
     export default {
         data() {
             return {

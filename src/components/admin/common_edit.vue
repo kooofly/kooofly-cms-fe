@@ -55,12 +55,12 @@
     </div>
 </template>
 <script>
-    import util from '../common/base/base'
-    import store from '../common/store'
-    import config from '../common/config'
-    import plugs from '../plugs/plugs'
-    import Tree from './com/tree.vue'
-    import VControls from './controls/_index.vue'
+    import util from '../../common/base/base'
+    import store from '../../common/store'
+    import config from '../../common/config'
+    import plugs from '../../plugs/plugs'
+    import Tree from '../com/tree.vue'
+    import VControls from '../controls/_index.vue'
     export default {
         data() {
             return {
