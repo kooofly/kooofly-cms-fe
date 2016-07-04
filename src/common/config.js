@@ -20,6 +20,20 @@ export default {
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
             ]
         },
+        article: {
+            // 创建新数据 保存接口
+            c_create: root + 'article?_map=catagory_link_content',
+            // 更新的时候 渲染的数据
+            c_update_model: root + 'article?_map=catagory_link_content',
+            l_columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '图片', field: 'logo', render: 'picture' },
+                { name: '标题', field: 'title', render: 'linkToEdit' },
+                { name: '链接', field: 'link', render: 'blank' },
+                { name: '打开方式', field: 'openMode' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+            ]
+        },
         dynamiccollection: {
             l_columns: [
                 { name: '#', field: '_id', render: 'checkbox' },

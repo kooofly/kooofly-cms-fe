@@ -28,7 +28,6 @@
         return {}
     },
     ready () {
-      console.log('header', this)
     },
     methods: {
       logout: function() {

@@ -39,8 +39,6 @@
             }
         },
         init: function() {
-
-            console.log('tmp_admin', this)
             var self = this
             this.$http.get({
                 url: config.menuUri

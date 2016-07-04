@@ -5,6 +5,7 @@ export default {
         // mainData默认module为article
         params.main = {}
         this.main.module = params.main.module = 'link'
+        params.parentPath = '/admin/content'
     },
     initSidebar: function(params) {
         this.initSidebar(params)

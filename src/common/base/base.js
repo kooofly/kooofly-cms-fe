@@ -117,7 +117,6 @@ export default {
         }
     },
     initSidebar: function(params) {
-        console.log('initSidebar', this)
         var self = this,
             uri = config.sidebarUri['menu'],
             sidebarRoot = this.activeNav._id,
@@ -187,6 +186,10 @@ export default {
 
         }
          return result
+    },
+    getParantPath: function () {
+        var fullPath = this.$route.params.parentPath || this.$route.fullPath
+        return fullPath.replace('/:module', '')
     },
     getModule: function (modelArea, inst) {
         var result = inst.$route.params.module

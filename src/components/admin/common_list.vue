@@ -67,6 +67,7 @@
                     root: '',
                     data: []
                 },
+                searchArea: {},
                 main: {
                     module: '',
                     // 查询条件
