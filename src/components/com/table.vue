@@ -87,40 +87,6 @@
             sortBy: function(key) {
                 this.sortKey = key
                 this.sortOrders[key] = this.sortOrders[key] * -1
-            },
-            render: function(name, rowData, columnOpt) {
-                var result
-                var renderFn = this[columnOpt.render]
-                if(renderFn) {
-                    result = renderFn(name, rowData)
-                } else {
-                    result = name
-                }
-                return result
-            },
-            isOrNot: function(value, rowData) {
-                return value ? '<span class="bg bg-success">是</span>' : '<span class="bg bg-danger">否</span>'
-            },
-            checkbox: function(value, rowData) {
-                return '<input type="checkbox" value="' + value + '" />'
-            },
-            linkToEdit: function(value, rowData) {
-                var module = util.getMode('main', this)
-                var href = '/#!/admin/' + module + '/' + rowData._id + '/update'
-                return '<a href="' + href + '">' + value + '</a>'
-            },
-            link_blank: function (value, rowData) {
-                return '<a href="' + value + '" target="_blank">' + value + '</a>'
-            },
-            adminLink: function (value, rowData) {
-                return value ? value : '<span class="text-helper">/#!/admin/' + rowData.alias + '</span>'
-            },
-            option: function(value, rowData) {
-                var module = this.$route.params.module
-                return '<a @click="abc()" class="text-danger action-delete">删除</a>'
-            },
-            abc: function () {
-                console.log(1)
             }
         },
         components: {

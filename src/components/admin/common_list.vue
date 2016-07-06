@@ -11,6 +11,9 @@
     .sidebar .customArea .btn:last-child{ margin: 0; }
     .table-footer{ padding: 10px; text-align: right; background: #fff; line-height: 1; }
     .table-footer .pagination{ vertical-align: middle; }
+    body .panel .footer { padding: 0.1rem; }
+    .btn-search { margin-left: 10px; }
+    .btn-search-switch { display: inline-block; width: 60px; font-size: 12px; }
 </style>
 <template>
 
@@ -27,13 +30,34 @@
         </div>
 
         <div class="main media-body">
-            <form class="panel form-search">
-                <div class="panel-body row">
-                    <div class="col-md-4">123</div>
-                    <div class="col-md-4">123</div>
-                    <div class="col-md-4">123</div>
+            <div v-if="search.isSenior" class="panel form-search">
+                <div class="body">
+                    <div class="row">
+                        <div v-for="item in search.area" class="col-md-6">
+                            <v-controls  :attrs="item" :model.sync="search.temp[item.name]"></v-controls>
+                        </div>
+                    </div>
                 </div>
-            </form>
+                <div class="footer text-right">
+                    <a class="btn-search-switch" @click="search.isSenior = false" href="javascript:;">收起</a>
+                    <button @click="excSearch()" class="btn btn-primary btn-search">搜索</button>
+                </div>
+            </div>
+            <div v-else class="panel">
+                <div class="body">
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="media media-top search">
+                                <div class="media-body"><input placeholder="可输入名称或链接" class="form-control" required="" type="search"><i class="icon icon-error clear"></i></div>
+                                <div class="media-right"><button @click="excSearch()" class="btn">搜索</button></div>
+                            </div>
+                        </div>
+                        <div class="media-right text-right">
+                            <a class="btn-search-switch" @click="search.isSenior = true" href="javascript:;">高级搜索</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row handlers">
                 <div class="col-md-12">
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
@@ -43,7 +67,7 @@
                 <v-table :data.sync="main.data" :columns.sync="main.columns"></v-table>
             </div>
             <div class="table-footer">
-                <v-pagination :limit="main.searchOption.limit" :page.sync="main.searchOption.page"></v-pagination>
+                <v-pagination :limit="search.option._limit" :page.sync="search.option._page"></v-pagination>
             </div>
         </div>
     </div>
@@ -57,6 +81,7 @@
     import VTable from '../com/table.vue'
     import VWidgets from '../widgets/_index.vue'
     import VPagination from '../widgets/pagination.vue'
+    import VControls from '../controls/_index.vue'
     export default {
         data() {
             return {
@@ -67,14 +92,21 @@
                     root: '',
                     data: []
                 },
-                searchArea: {},
+                // 查询条件
+                search: {
+                    isSenior: true,
+                    temp: {
+                        _map: 'catagory_link_content',
+                        _pattern: 'onetomany'
+                    },
+                    area: [],
+                    option: {
+                        _limit: 10,
+                        _page: 1
+                    }
+                },
                 main: {
                     module: '',
-                    // 查询条件
-                    searchOption: {
-                        limit: 10,
-                        page: 1
-                    },
                     // 表头
                     columns: [],
                     // 数据
@@ -104,7 +136,7 @@
                     this.$emit('dataReady')
                 }
             },
-            'main.searchOption': {
+            'search.option': {
                 handler () {
                     this.initMain(this.$route.params)
                 },
@@ -138,13 +170,15 @@
                 var module = self.main.module
                 var uri = config.apiRoot + module
                 var pid = params.id
+                this.search.area = config.module[this.main.module] && config.module[this.main.module].searchArea
                 this.$http.get({
                     url: uri,
-                    data: {
+                    data: self.search.option
+                    /*data: {
                         _limit: self.main.searchOption.limit,
                         _page: self.main.searchOption.page,
                         parentId: pid
-                    }
+                    }*/
                 }).then(function(res) {
                     if(config.module[module] && config.module[module]['l_columns']) {
                         self.$set('main.columns', config.module[module]['l_columns'])
@@ -156,6 +190,23 @@
             },
             initSystemConfig: function(systemConfig) {
                 util.initSystemConfig.call(this, systemConfig)
+            },
+            excSearch: function () {
+                var self = this
+                var translateData = (function () {
+                    var result = {}
+                    var temp = self.search.temp
+                    for (var k in temp) {
+                        if(temp[k] === '') {
+                            delete self.search.option[k]
+                        } else {
+                            result[k] = temp[k]
+                        }
+                    }
+                    return result
+                })()
+                util.mix(this.search.option, translateData)
+                this.initMain(this.$route.params)
             }
         },
         events: {
@@ -167,7 +218,8 @@
             Tree,
             VTable,
             VWidgets,
-            VPagination
+            VPagination,
+            VControls
         }
     }
 </script>

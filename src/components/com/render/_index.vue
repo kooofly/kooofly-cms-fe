@@ -9,6 +9,7 @@
     import V_isOrNot from './is-or-not.vue'
     import V_linkToEdit from './link-to-edit.vue'
     import V_options from './options.vue'
+    import V_picture from './picture.vue'
 
     export default {
         props: {
@@ -40,7 +41,8 @@
             V_checkbox,
             V_isOrNot,
             V_linkToEdit,
-            V_options
+            V_options,
+            V_picture
         }
     }
 </script>

@@ -18,7 +18,28 @@ export default {
                 { name: '链接', field: 'link', render: 'blank' },
                 { name: '打开方式', field: 'openMode' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
-            ]
+            ],
+            // 高级搜索配置
+            searchArea: [
+                {
+                    name: 'catagoryId',
+                    control: {
+                        label: '分类',
+                        name: 'select',
+                        data: '@catagory'
+                    }
+                },
+                {
+                    name: 'title',
+                    attribute: { type: 'String', required: true },
+                    control: {
+                        name: 'text',
+                        label: '名称'
+                    }
+                }
+            ],
+            // 搜索配置
+            searchKey: []
         },
         article: {
             // 创建新数据 保存接口
