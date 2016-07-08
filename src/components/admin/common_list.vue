@@ -30,7 +30,7 @@
         </div>
 
         <div class="main media-body">
-            <div v-if="search.isSenior" class="panel form-search">
+            <div v-if="search.isSenior && search.area" class="panel form-search">
                 <div class="body">
                     <div class="row">
                         <div v-for="item in search.area" class="col-md-6">
@@ -43,12 +43,12 @@
                     <button @click="excSearch()" class="btn btn-primary btn-search">搜索</button>
                 </div>
             </div>
-            <div v-else class="panel">
-                <div class="body">
+            <div v-else v-if="search.key" class="panel">
+                <div class="body" >
                     <div class="media">
                         <div class="media-body">
                             <div class="media media-top search">
-                                <div class="media-body"><input placeholder="可输入名称或链接" class="form-control" required="" type="search"><i class="icon icon-error clear"></i></div>
+                                <div class="media-body"><input :placeholder="search.key.placeholder" class="form-control" :name="search.temp[search.key.name]" v-model="search.temp[search.key.name]" type="search"><i class="icon icon-error clear"></i></div>
                                 <div class="media-right"><button @click="excSearch()" class="btn">搜索</button></div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                     <v-widgets v-for="item in systemConfig.data.handlers.config" :attrs="item"></v-widgets>
                 </div>
             </div>
-            <div style="min-height: 472px; background: #fff; border-bottom: 1px solid  #f1f1f1;">
+            <div style="min-height: 472px; background: #fff; border-bottom: 1px solid #f1f1f1;">
                 <v-table :data.sync="main.data" :columns.sync="main.columns"></v-table>
             </div>
             <div class="table-footer">
@@ -100,6 +100,7 @@
                         _pattern: 'onetomany'
                     },
                     area: [],
+                    key: null,
                     option: {
                         _limit: 10,
                         _page: 1
@@ -171,6 +172,7 @@
                 var uri = config.apiRoot + module
                 var pid = params.id
                 this.search.area = config.module[this.main.module] && config.module[this.main.module].searchArea
+                this.search.key = config.module[this.main.module] && config.module[this.main.module].searchKey
                 this.$http.get({
                     url: uri,
                     data: self.search.option

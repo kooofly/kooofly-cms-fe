@@ -5,6 +5,9 @@ import Admin from '../../src/components/admin/admin.vue'
 import CommonList from '../../src/components/admin/common_list.vue'
 import CommonEdit from '../../src/components/admin/common_edit.vue'
 
+var layout = {
+    Index: Index
+}
 //区分编辑和添加
 var CommonCreate = common.mix({}, CommonEdit)
 CommonCreate.props = common.mix({}, CommonCreate.props, { action: {
@@ -41,9 +44,6 @@ function routerBase(prev) {
 
 
 export default {
-    '/': {
-        component: Index
-    },
     '/admin': {
         component: Admin,
         subRoutes : common.mix({}, commonRouter, routerBase(''), routerBase('/system'), routerBase('/content'))

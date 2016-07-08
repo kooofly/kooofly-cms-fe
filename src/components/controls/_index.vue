@@ -13,6 +13,7 @@
     import V_textareaRich from './textarea-rich.vue'
     import V_groupFields from './group-fields.vue'
     import V_groupApis from './group-apis.vue'
+    import V_selectLayout from './select-layout.vue'
     export default {
         props: {
             attrs: {
@@ -70,7 +71,8 @@
             V_textarea,
             V_groupFields,
             V_groupApis,
-            V_textareaRich
+            V_textareaRich,
+            V_selectLayout
         }
     }
 </script>

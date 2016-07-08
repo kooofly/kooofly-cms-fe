@@ -40,7 +40,7 @@
         entry in data
         | filterBy filterKey
         | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in columns">
+            <td v-for="key in columns" :class="key.className">
                 <v-render :value="entry[key.field]" :row-data.sync="entry" :render="key.render"></v-render>
             </td>
         </tr>

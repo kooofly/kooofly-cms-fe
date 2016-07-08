@@ -38,8 +38,11 @@ export default {
                     }
                 }
             ],
-            // 搜索配置
-            searchKey: []
+            // 简单搜索配置，暂时只支持一个
+            searchKey: {
+                placeholder: '名称',
+                name: 'title'
+            }
         },
         article: {
             // 创建新数据 保存接口
@@ -96,6 +99,15 @@ export default {
                 { name: '名称', field: 'name', render: 'linkToEdit' },
                 { name: '别名', field: 'alias' },
                 { name: '链接', field: 'link', render: 'adminLink' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+            ]
+        },
+        page: {
+            l_columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '标题', field: 'title', render: 'linkToEdit' },
+                { name: '布局', field: 'layout', render: 'picture', className: 'layout-image' },
+                { name: '路由', field: 'router' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
             ]
         }
