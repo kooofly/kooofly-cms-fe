@@ -5,6 +5,7 @@ export default {
     menuUri: root + 'menu',
     modelUri: root + 'dynamiccollection?collectionName=',
     systemconfigUri: root + 'systemconfig',
+    page: root + 'page',
     module: {
         link: {
             // 创建新数据 保存接口

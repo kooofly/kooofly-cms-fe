@@ -1,6 +1,7 @@
 "use strict";
 import config from '../config'
 import store from '../store'
+
 export default {
     mix: function(o) {
         var i = 1,
@@ -37,10 +38,45 @@ export default {
         }
         return result;
     },
+    setPageTitle: function (v) {
+        // this.changeTitle(v)
+        window.document.title = v
+    },
+    changeTitle: function (v) {
+        // 原生触发
+        document.title = v
+        var iframe = document.createElement('iframe')
+        iframe.style.visibility = 'hidden'
+        iframe.style.width = '1px'
+        iframe.style.height = '1px'
+        iframe.setAttribute('src', '/static/_404.png')
+        iframe.addEventListener('load', function () {
+            setTimeout(function () {
+                iframe.removeEventListener('load', function () {
+                })
+                document.body.removeChild(iframe)
+            }, 0)
+        })
+        document.body.appendChild(iframe)
+        // document.title = v
+        // window.setTimeout(function () {
+        //     // 利用iframe的onload事件刷新页面
+        //     var iframe = document.createElement('iframe')
+        //     iframe.style.visibility = 'hidden'
+        //     iframe.style.width = '1px'
+        //     iframe.style.height = '1px'
+        //     iframe.setAttribute('src', '/static/_404.png')
+        //     iframe.onload = function () {
+        //         window.setTimeout(function () {
+        //             document.body.removeChild(iframe)
+        //         }, 0)
+        //     }
+        //     document.body.appendChild(iframe)
+        // }, 0)
+    },
     routerBeforeEach: function(router) {
         var self = this;
         router.beforeEach(function (transition) {
-
 
             var toPath = transition.to.path,
                 fromPath = transition.from.path
@@ -52,14 +88,18 @@ export default {
                 return ;
             }*/
 
+            // 设置标题
+            var title = transition.to.title || 'Kooofly CMS'
+            self.setPageTitle(title)
+
             //404 检测
-            if(!transition.to.matched){
+            /*if(!transition.to.matched){
                 console.log(transition)
                 //修复404 退回问题
                 fromPath && router.replace(fromPath);
                 router.go('/404');
                 return ;
-            }
+            }*/
 
             var auths = transition.to.auths
             //身份 权限检测

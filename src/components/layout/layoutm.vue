@@ -1,0 +1,40 @@
+<style type="text/css">
+    .page-h .layout-left{ padding-right: 0; }
+    .page-h .layout-left .layout-inner{ padding-right: 0; width: 240px; }
+    .page-h .layout{ margin-top: 0; }
+</style>
+<template>
+    <div :id="config.page" class="page page-m" v-if="config">
+        <div class="layout-wrapper" v-for="widget in config.widgets">
+            <v-widget :attrs="widget"></v-widget>
+        </div>
+    </div>
+</template>
+<script>
+    import VWidget from '../widgets/_index.vue'
+    import config from '../../common/config'
+    export default {
+        data () {
+            // [{"widget":"test"},{"widget":"test"},{"widget":"test"}...]
+            return {
+                config: null
+            }
+        },
+        ready () {
+            // 异步请求 可以让后端控制权限
+
+            var self = this
+            var resource = this.$resource(config.page)
+            resource.get({
+                _single: 1,
+                layout: 'LayoutM',
+                router: self.$route.fullPath
+            }).then(function (res) {
+                self.config = res.data.config
+            })
+        },
+        components: {
+            VWidget
+        }
+    }
+</script>

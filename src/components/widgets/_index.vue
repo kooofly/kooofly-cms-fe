@@ -5,6 +5,12 @@
     import V_dropdown from './dropdown.vue'
     import V_buttonCreate from './button-create.vue'
     import V_buttonBatch_delete from './button-batch_delete.vue'
+    import V_test from './test.vue'
+    import V_logo from './logo.vue'
+    import V_tree from './tree.vue'
+    import V_article from './article.vue'
+    import V_directory from './directory.vue'
+    import V_nav from './nav.vue'
     export default {
         props: {
             attrs: {
@@ -37,7 +43,13 @@
         components: {
             V_dropdown,
             V_buttonCreate,
-            V_buttonBatch_delete
+            V_buttonBatch_delete,
+            V_test,
+            V_logo,
+            V_tree,
+            V_article,
+            V_directory,
+            V_nav
         }
     }
 </script>
