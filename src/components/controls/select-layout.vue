@@ -4,7 +4,7 @@
     .wrap-layout .selected{ border-color: #00bfff; }
 </style>
 <template>
-    <label class="media">
+    <label class="media media-top">
         <div class="media-left">
             <span class="control-label">{{attrs.control.label}}</span>
         </div>

@@ -11,6 +11,7 @@
     import V_article from './article.vue'
     import V_directory from './directory.vue'
     import V_nav from './nav.vue'
+    import V_skuEditor from './sku-editor.vue'
     export default {
         props: {
             attrs: {
@@ -49,7 +50,8 @@
             V_tree,
             V_article,
             V_directory,
-            V_nav
+            V_nav,
+            V_skuEditor
         }
     }
 </script>

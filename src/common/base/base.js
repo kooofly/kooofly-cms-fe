@@ -237,5 +237,8 @@ export default {
             result = inst.$route.params.main.module
         }
         return result
+    },
+    load: function () {
+
     }
 }
