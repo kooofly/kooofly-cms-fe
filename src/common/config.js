@@ -45,6 +45,23 @@ export default {
                 name: 'title'
             }
         },
+        widget: {
+            l_columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '名称', field: 'name', render: 'linkToEdit' },
+                { name: '描述', field: 'description', }
+            ]
+        },
+        widgetdata: {
+            l_columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '图片', field: 'logo', render: 'picture' },
+                { name: '名称', field: 'title', render: 'linkToEdit' },
+                { name: '链接', field: 'link', render: 'blank' },
+                { name: '打开方式', field: 'openMode' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+            ]
+        },
         article: {
             // 创建新数据 保存接口
             c_create: root + 'article?_map=catagory_link_content',

@@ -25,7 +25,7 @@
                 </div>
             </aside>
             <div class="main media-body">
-                <div class="row" v-for="widget in config.widgets[3]">
+                <div class="row" v-for="widget in widgetsMain">
                     <div class="col-md-12 layout-wrapper">
                         <v-widget :attrs="widget"></v-widget>
                     </div>
@@ -40,14 +40,13 @@
     import config from '../../common/config'
     export default {
         data () {
-            // [{"widget":"test"},{"widget":"test"},{"widget":"test"},[{"widget":"test"},{"widget":"test"},{"widget":"test"}]]
             return {
-                config: null
+                config: null,
+                widgetsMain: null
             }
         },
         ready () {
             // 异步请求 可以让后端控制权限
-
             var self = this
             var resource = this.$resource(config.page)
             resource.get({
@@ -56,6 +55,15 @@
                 router: self.$route.fullPath
             }).then(function (res) {
                 self.config = res.data.config
+                self.widgetsMain = (function (index) {
+                    var result = []
+                    var widgets = res.data.config.widgets
+                    for (var i = index, j = widgets.length; i < j; i++) {
+                        var o = widgets[i];
+                        result.push(o)
+                    }
+                    return result
+                })(3)
             })
         },
         components: {

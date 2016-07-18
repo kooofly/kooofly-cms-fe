@@ -14,7 +14,7 @@
     import V_groupFields from './group-fields.vue'
     import V_groupApis from './group-apis.vue'
     import V_selectLayout from './select-layout.vue'
-    import V_moduleEditor from './module-editor.vue'
+    import V_pageEditor from './page-editor.vue'
     export default {
         props: {
             attrs: {
@@ -74,7 +74,7 @@
             V_groupApis,
             V_textareaRich,
             V_selectLayout,
-            V_moduleEditor
+            V_pageEditor
         }
     }
 </script>

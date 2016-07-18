@@ -1,5 +1,5 @@
 <style type="text/css">
-    .logo{ line-height: 60px; height: 60px; margin: 10px 0 10px 20px; }
+    .logo{}
     .logo img{ width: 36px; height: 36px; padding: 2px; margin-right: 8px; border: 2px solid #7799bb; border-radius: 4px; vertical-align: middle }
     .logo span { font-size: 20px; vertical-align: middle; color: #7799bb; font-family: cursive; }
 </style>

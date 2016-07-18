@@ -15,14 +15,12 @@
     import config from '../../common/config'
     export default {
         data () {
-            // [{"widget":"test"},{"widget":"test"},{"widget":"test"}...]
             return {
                 config: null
             }
         },
         ready () {
             // 异步请求 可以让后端控制权限
-
             var self = this
             var resource = this.$resource(config.page)
             resource.get({

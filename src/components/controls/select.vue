@@ -45,17 +45,18 @@
                     url: api
                 }).then(function (res) {
                     var sampling = res.data[0]
-                    if (sampling.text && sampling.value) {
-                        self.renderData = res.data
-                    } else if (sampling._id &&  sampling.name) {
-                        res.data.forEach(function(v, i) {
-                            self.renderData.push({
-                                value: v._id,
-                                text: v.name
+                    if (sampling) {
+                        if (sampling.text && sampling.value) {
+                            self.renderData = res.data
+                        } else {
+                            res.data.forEach(function(v, i) {
+                                self.renderData.push({
+                                    value: v._id,
+                                    text: v.name || v.title
+                                })
                             })
-                        })
+                        }
                     }
-
                 })
             }
         }

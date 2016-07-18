@@ -2,7 +2,7 @@
     .layout-image img{ border: 2px solid #f0f0f0; padding: 2px; }
 </style>
 <template>
-    <img width="40" height="40" :src="src" />
+    <div><img v-if="value" width="40" height="40" :src="src" /></div>
 </template>
 <script>
     export default {
@@ -28,6 +28,7 @@
                     this.src = '/src/images/' + v + '.png'
                 }
             }
+
         }
     }
 </script>

@@ -24,13 +24,14 @@ Vue.filter('isOrNot', function(value) {
     return value ? '<span class="bg bg-success">是</span>' : '<span class="bg bg-danger">否</span>'
 })
 var router = new VueRouter()
-Vue.http(config.page).then(function(res) {
+Vue.http(config.page + '?_projection=router,title,layout').then(function(res) {
 
     var data = res.data
     var r = (function() {
         var result = {}
         data.forEach(function (v) {
             result[v.router] = {
+                title: v.title,
                 component: layout[v.layout]
             }
         })

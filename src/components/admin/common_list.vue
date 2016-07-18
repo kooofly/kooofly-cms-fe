@@ -16,7 +16,6 @@
     .btn-search-switch { display: inline-block; width: 60px; font-size: 12px; }
 </style>
 <template>
-
     <div class="media media-top">
         <div class="media-left">
             <aside class="sidebar">
