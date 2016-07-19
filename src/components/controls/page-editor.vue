@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="media-body">
                                         <div class="uri">
-                                            <input v-else class="form-control" placeholder="默认值为 /widgetdata?pageId=:pageId&widgetId=:widgetId，由前端设置" v-model="m.uri" type="text"/>
+                                            <input v-else class="form-control" placeholder="默认值为 /widgetdata?pageId=:pageId&widgetId=:widgetId，由前端设置" v-model="m.params.uri" type="text"/>
                                         </div>
                                     </div>
                                 </label>
@@ -64,14 +64,9 @@
     </label>
 </template>
 <script>
-    var defaultWidget = {
-        widget: '',
-        params: '',
-        uri:''
-    }
     var defaultModel = {
         page: '',
-        widgets: [Object.assign({}, self.defaultHelper)]
+        widgets: [{}]
     }
     export default {
         props: {
@@ -102,8 +97,7 @@
                     isVisual: true,
                     // 默认隐藏高级配置
                     isAdvanced: false
-                },
-                defaultWidget: defaultWidget
+                }
             }
         },
         watch: {
@@ -129,8 +123,7 @@
         },
         methods: {
             addWidgets: function () {
-                debugger
-                this.model.widgets.push(Object.assign({}, defaultModel))
+                this.model.widgets.push({})
                 this.helpers.push(Object.assign({}, this.defaultHelper))
             },
             changeWidgets: function (index) {

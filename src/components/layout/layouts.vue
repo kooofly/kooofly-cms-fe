@@ -28,6 +28,7 @@
 <script>
     import VWidget from '../widgets/_index.vue'
     import config from '../../common/config'
+    import store from '../../common/store'
     export default {
         data () {
             return {
@@ -54,6 +55,7 @@
                     }
                     return result
                 })(2)
+                store.dispatch('PAGEID', res.data._id)
             })
         },
         components: {

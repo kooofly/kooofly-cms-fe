@@ -24,20 +24,50 @@ Vue.filter('isOrNot', function(value) {
     return value ? '<span class="bg bg-success">是</span>' : '<span class="bg bg-danger">否</span>'
 })
 var router = new VueRouter()
-Vue.http(config.page + '?_projection=router,title,layout').then(function(res) {
-
-    var data = res.data
-    var r = (function() {
-        var result = {}
-        data.forEach(function (v) {
-            result[v.router] = {
-                title: v.title,
-                component: layout[v.layout]
+function syncRouters(data) {
+    var result = {}
+    data.forEach(function (v) {
+        var parentRouter = v.config && v.config.parentRouter
+        var routers = v.router.split(',')
+        if (parentRouter) {
+            if (!result[parentRouter]) {
+                result[parentRouter] = {}
             }
-        })
-        return result
-    })()
-    common.mix(routers, r)
+            routers.forEach(function (r) {
+                result[parentRouter][r] = {
+                    title: v.title,
+                    component: layout[v.layout]
+                }
+                if (v.redirect) {
+                    var o = {
+                        title: v.title
+                    }
+                    o[parentRouter + r] = v.redirect
+                    router.redirect(o)
+                }
+            })
+        } else {
+            routers.forEach(function (r) {
+                result[r] = {
+                    title: v.title,
+                    component: layout[v.layout]
+                }
+                if (v.redirect) {
+                    var o = {
+                        title: v.title
+                    }
+                    o[r] = v.redirect
+                    router.redirect(o)
+                }
+            })
+        }
+
+    })
+    return result
+}
+Vue.http(config.page + '?_projection=router,title,layout,config.parentRouter,config.redirect').then(function(res) {
+    var data = res.data
+    common.mix(routers, syncRouters(data))
     common.mix(routers, {
         '/': {
             title: '首页 - Kooofly CMS',
@@ -45,9 +75,6 @@ Vue.http(config.page + '?_projection=router,title,layout').then(function(res) {
         }
     })
     router.map(routers)
-    /*router.alias({
-     '/admin/system/': '/admin/system/api'
-     })*/
     router.redirect({
         title: '内容管理 - Kooofly CMS',
         '/admin': '/admin/content'

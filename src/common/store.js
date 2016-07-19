@@ -4,17 +4,21 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         menu: [],
-        activeNav: {}
+        activeNav: {},
+        pageId: '',
     },
     actions: {
 
     },
     mutations: {
-        MENU (state, menu) {
-            state.menu = menu
+        MENU (state, v) {
+            state.menu = v
         },
-        ACTIVENAV(state, activeNav) {
-            state.activeNav = activeNav
+        ACTIVENAV(state, v) {
+            state.activeNav = v
+        },
+        PAGEID(state, v) {
+            state.pageId = v
         }
     }
 })

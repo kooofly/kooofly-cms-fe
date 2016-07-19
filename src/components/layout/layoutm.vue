@@ -13,6 +13,7 @@
 <script>
     import VWidget from '../widgets/_index.vue'
     import config from '../../common/config'
+    import store from '../../common/store'
     export default {
         data () {
             return {
@@ -29,6 +30,7 @@
                 router: self.$route.fullPath
             }).then(function (res) {
                 self.config = res.data.config
+                store.dispatch('PAGEID', res.data._id)
             })
         },
         components: {

@@ -7,11 +7,13 @@
     import V_buttonBatch_delete from './button-batch_delete.vue'
     import V_test from './test.vue'
     import V_logo from './logo.vue'
-    import V_tree from './tree.vue'
+    import V_tree from './tree/tree.vue'
     import V_article from './article.vue'
     import V_directory from './directory.vue'
     import V_nav from './nav.vue'
     import V_skuEditor from './sku-editor.vue'
+    import V_navAdmin from './nav-admin.vue'
+    import V_searchAdmin from './search-admin.vue'
     export default {
         props: {
             attrs: {
@@ -32,7 +34,7 @@
         methods: {
             getCurrentCom () {
                 var result
-                var widget = this.attrs.widget
+                var widget = this.attrs && this.attrs.widget
                 if (!widget) {
                     result = ''
                 } else {
@@ -51,7 +53,9 @@
             V_article,
             V_directory,
             V_nav,
-            V_skuEditor
+            V_skuEditor,
+            V_navAdmin,
+            V_searchAdmin
         }
     }
 </script>

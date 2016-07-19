@@ -5,7 +5,7 @@
 </style>
 <template>
     <div :id="config.page" class="page page-h" v-if="config">
-        <header class="head">
+        <header class="header">
             <div class="media layout media-top">
                 <div class="layout-left media-left">
                     <div class="layout-wrapper">
@@ -38,6 +38,7 @@
 <script>
     import VWidget from '../widgets/_index.vue'
     import config from '../../common/config'
+    import store from '../../common/store'
     export default {
         data () {
             return {
@@ -64,6 +65,7 @@
                     }
                     return result
                 })(3)
+                store.dispatch('PAGEID', res.data._id)
             })
         },
         components: {

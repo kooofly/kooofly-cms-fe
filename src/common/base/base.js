@@ -213,6 +213,11 @@ export default {
             }
         }
     },
+    uri: function (params) {
+        var p = params ? params : {query: '', widgetId: ''}
+        var pageId = store.state.pageId
+        return this.attrs && this.attrs.uri ? config.apiRoot + this.attrs.uri + p.query : config.widgetData + '?pageId=' + pageId + '&widgetId=' + p.widgetId
+    },
     getUri: function (module, action, params) {
         var result
         if (config.module[module] && config.module[module][action]) {
