@@ -26,15 +26,16 @@
             },
             model: {}
         },
+        data () {
+            return {
+                widgetId: 'nav-admin'
+            }
+        },
         ready () {
             var self = this
-
-            this.$http.get({
-                url: util.uri.call(this)
-            }).then(function(res) {
-                var menu = res.data
-
-                store.dispatch('MENU', menu)
+            util.getWidgetData.call(this).then(function(data) {
+                var menu = data
+                // store.dispatch('MENU', menu)
                 var nav = []
                 menu.forEach(function(v, i) {
                     if(!v.parentId){

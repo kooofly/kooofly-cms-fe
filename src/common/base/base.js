@@ -213,10 +213,28 @@ export default {
             }
         }
     },
-    uri: function (params) {
-        var p = params ? params : {query: '', widgetId: ''}
+    getWidgetModule: function (key) {
+        var result
+        var m = this.attrs.module || this.$route.params.module
+        if (key) {
+            result = (key === 'moduleName' ? m : config.module[m][key])
+        } else {
+            result = config.module[m]
+        }
+        return result
+    },
+    getWidgetData: function (query) {
+        var self = this
         var pageId = store.state.pageId
-        return this.attrs && this.attrs.uri ? config.apiRoot + this.attrs.uri + p.query : config.widgetData + '?pageId=' + pageId + '&widgetId=' + p.widgetId
+        var uri = this.attrs && this.attrs.uri ? config.apiRoot + self.attrs.uri : config.widgetData + '?pageId=' + pageId + '&widgetId=' + self.widgetId
+        if (!self.attrs.model) {
+            return self.$http.get({
+                url: uri,
+                data: this.attrs.query
+            }).then(function (res) {
+                return res.data
+            })
+        }
     },
     getUri: function (module, action, params) {
         var result

@@ -27,6 +27,7 @@
         },
         data () {
             return {
+                widgetId: 'tree',
                 treeData: []
             }
         },
@@ -38,14 +39,11 @@
         },
         ready () {
             var self = this
-            var params = {
-                query: this.parentId() ? '?parentId=' + this.parentId() : '',
-                widgetId: 'tree'
+            this.attrs.query = {
+                parentId: this.parentId()
             }
-            this.$http.get({
-                url: util.uri.call(this,  params)
-            }).then(function(res) {
-                var menu = res.data
+            util.getWidgetData.call(this).then(function (data) {
+                var menu = data
                 store.dispatch('MENU', menu)
                 self.$set('model', menu)
             })

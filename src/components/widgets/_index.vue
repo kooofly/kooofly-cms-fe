@@ -1,5 +1,6 @@
 <template>
-    <component :attrs="attrs.params" :is="currentCom"></component>
+    <component v-if="attrs.params" :attrs="attrs.params" :is="currentCom"></component>
+    <component v-else :is="currentCom"></component>
 </template>
 <script>
     import V_dropdown from './dropdown.vue'
@@ -14,6 +15,8 @@
     import V_skuEditor from './sku-editor.vue'
     import V_navAdmin from './nav-admin.vue'
     import V_searchAdmin from './search-admin.vue'
+    import V_table from './table/table.vue'
+    import V_pagination from './pagination2.vue'
     export default {
         props: {
             attrs: {
@@ -55,7 +58,9 @@
             V_nav,
             V_skuEditor,
             V_navAdmin,
-            V_searchAdmin
+            V_searchAdmin,
+            V_table,
+            V_pagination
         }
     }
 </script>

@@ -6,6 +6,11 @@ export default new Vuex.Store({
         menu: [],
         activeNav: {},
         pageId: '',
+        mainQuery: {
+            _limit: 10,
+            _page: 1
+        },
+        mainTotal: ''
     },
     actions: {
 
@@ -19,6 +24,15 @@ export default new Vuex.Store({
         },
         PAGEID(state, v) {
             state.pageId = v
+        },
+        MAINQUERY(state, v) {
+            console.log(state)
+            for (var k in v) {
+                state.mainQuery[k] = v[k]
+            }
+        },
+        MAINTOTAL (state, v) {
+            state.mainTotal = v
         }
     }
 })

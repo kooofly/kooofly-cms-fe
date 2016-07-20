@@ -11,7 +11,6 @@
                     <div class="layout-wrapper">
                         <v-widget :attrs="config.widgets[0]"></v-widget>
                     </div>
-
                 </div>
                 <div class="media-body">
                     <v-widget :attrs="config.widgets[1]"></v-widget>

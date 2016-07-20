@@ -1,3 +1,4 @@
+html,body{ height: 100%; }
 
 #doc{ background: #fff; }
 #doc .logo { margin: 10px 0 10px 20px; }
@@ -6,9 +7,12 @@
 #doc .layout-left .tree{ position:fixed; top: 57px; bottom: 0; width: 240px; border-right:1px solid #ddd; background: #f9f9f9; padding: 20px; }
 #doc .article{ padding-top: 57px; min-height: 800px; }
 
-
+#sadmin{ height: 100%; background: #fff; }
 #sadmin .logo { margin: 10px 0 10px 20px; }
 #sadmin .header{ border-bottom: 1px solid #ddd; position: fixed; top: 0; background: #fff; z-index: 10; }
 #sadmin .header .layout{ padding-top: 0; }
 #sadmin .layout{ padding-top: 61px; }
-#sadmin .layout-left .tree-root{ position:fixed; top: 61px; bottom: 0; width: 240px; border-right:1px solid #ddd; background: #fff; }
+#sadmin .layout-left .tree-root{ position:fixed; top: 61px; bottom: 0; width: 240px; border-right:1px solid #ddd; background: #f9f9f9; }
+#sadmin .search-admin .panel{ margin-bottom: 0; }
+#sadmin .pagination{ text-align: right; background: #fff; padding: 10px; display: block; line-height: 1; }
+#sadmin .pagination .inner{ display: inline-block; }
