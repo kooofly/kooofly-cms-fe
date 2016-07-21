@@ -9,7 +9,7 @@
     .add-widget { margin-top: -20px; }
 </style>
 <template>
-    <label class="media media-top">
+    <div class="media media-top">
         <div class="media-left">
             <span class="control-label">{{attrs.control.label}}</span>
         </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </label>
+    </div>
 </template>
 <script>
     var defaultModel = {

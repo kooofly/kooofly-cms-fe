@@ -223,18 +223,45 @@ export default {
         }
         return result
     },
-    getWidgetData: function (query) {
+    getWidgetData: function () {
         var self = this
         var pageId = store.state.pageId
         var uri = this.attrs && this.attrs.uri ? config.apiRoot + self.attrs.uri : config.widgetData + '?pageId=' + pageId + '&widgetId=' + self.widgetId
         if (!self.attrs.model) {
             return self.$http.get({
                 url: uri,
-                data: this.attrs.query
+                data: this.query
             }).then(function (res) {
                 return res.data
             })
         }
+    },
+    /*
+    * 配置中的特殊符号说明：
+    * @xyz 表示请求xyz链接
+    * #mainQuery 表示等于全局变量 store.mainQuery
+    * $abc 表示等于前端配置 config[:module].abc
+    * &xyz 表示route.xyz
+    * */
+    // TODO 完善 考虑 http://x?a=d&b=3 等
+    getWidgetConfig: function (v) {
+        var result = v
+        if (typeof v === 'string') {
+            if (/#/.test(v)) {
+                var key = v.replace('#', '')
+                result = store.state[key]
+            } else if (/\$/.test(v)) {
+                var m = /&/.test(this.attrs.module) ? (this.$route[key] || this.$route.params[key] || this.$route.params['module']) : (this.attrs.module || this.$route.params['module'])
+                var key = v.replace('$', '')
+                result = config['module'] && config['module'][m] ? config['module'][m][key] : ''
+            } else if (/&/.test(v)) {
+                var key = v.replace('&', '')
+                result = this.$route[key] || this.$route.params[key] || this.$route.params['module']
+            } else {
+                return v
+            }
+        }
+        return result
     },
     getUri: function (module, action, params) {
         var result

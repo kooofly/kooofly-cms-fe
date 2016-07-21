@@ -1,8 +1,3 @@
-<style type="text/css">
-    .page-h .layout-left{ padding-right: 0; }
-    .page-h .layout-left .layout-inner{ padding-right: 0; width: 240px; }
-    .page-h .layout{ margin-top: 0; }
-</style>
 <template>
     <div :id="config.page" class="page page-m" v-if="config">
         <div class="layout-wrapper" v-for="widget in config.widgets">

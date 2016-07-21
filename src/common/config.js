@@ -21,6 +21,14 @@ export default {
                 { name: '打开方式', field: 'openMode' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
             ],
+            columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '图片', field: 'logo', render: 'picture' },
+                { name: '名称', field: 'title', render: 'linkToEdit' },
+                { name: '链接', field: 'link', render: 'blank' },
+                { name: '打开方式', field: 'openMode' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+            ],
             // 高级搜索配置
             searchArea: [
                 {
@@ -41,10 +49,13 @@ export default {
                 }
             ],
             // 简单搜索配置，暂时只支持一个
-            searchKey: {
+            searchHolder: '名称',
+
+            /*searchKey: {
                 placeholder: '名称',
                 name: 'title'
-            }
+            },*/
+            searchKey: 'title'
         },
         widget: {
             l_columns: [
@@ -94,6 +105,15 @@ export default {
                 { name: 'type', field: 'type' },
                 { name: '是否启用', field: 'isEnable', render: 'isOrNot' },
                 { name: '操作', field: '_id', render: 'options' }
+            ],
+            columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: 'uri', field: 'uri', render: 'linkToEdit' },
+                { name: 'method', field: 'method' },
+                { name: 'owner', field: 'owner' },
+                { name: 'type', field: 'type' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' },
+                { name: '操作', field: '_id', render: 'options' }
             ]
         },
         catagory: {
@@ -123,6 +143,13 @@ export default {
         },
         page: {
             l_columns: [
+                { name: '#', field: '_id', render: 'checkbox' },
+                { name: '标题', field: 'title', render: 'linkToEdit' },
+                { name: '布局', field: 'layout', render: 'picture', className: 'layout-image' },
+                { name: '路由', field: 'router' },
+                { name: '是否启用', field: 'isEnable', render: 'isOrNot' }
+            ],
+            columns: [
                 { name: '#', field: '_id', render: 'checkbox' },
                 { name: '标题', field: 'title', render: 'linkToEdit' },
                 { name: '布局', field: 'layout', render: 'picture', className: 'layout-image' },

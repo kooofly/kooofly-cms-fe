@@ -9,7 +9,7 @@
 </style>
 <template>
     <nav class="wrapper an-group-moveFromRightFade">
-        <a v-for="item in model" class="anitem" :class="active === item.alias && 'active'" v-link="{ path: '/admin/' + item.alias }">{{item.name}}</a>
+        <a v-for="item in model" class="anitem" :class="active === item.alias && 'active'" v-link="{ path: '/sadmin/' + item.alias }">{{item.name}}</a>
     </nav>
 </template>
 <script>
@@ -21,24 +21,34 @@
             attrs: {
                 type: Object,
                 default: function () {
-                    return {}
+                    return {
+                        module: ''
+                    }
                 }
             },
             model: {}
         },
         data () {
             return {
-                widgetId: 'nav-admin'
+                widgetId: 'nav-admin',
+                module: '&parentModule'
+            }
+        },
+        computed: {
+            active () {
+                return store.state.activeNav
             }
         },
         ready () {
             var self = this
             util.getWidgetData.call(this).then(function(data) {
-                var menu = data
-                // store.dispatch('MENU', menu)
                 var nav = []
-                menu.forEach(function(v, i) {
+                var module = util.getWidgetConfig.call(self, self.module)
+                data.forEach(function(v, i) {
                     if(!v.parentId){
+                        if (v.alias === module || v._id  === module) {
+                            store.dispatch('ACTIVENAV', v)
+                        }
                         nav.push(v)
                     }
                 })

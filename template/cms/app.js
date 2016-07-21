@@ -38,12 +38,12 @@ function syncRouters(data) {
                     title: v.title,
                     component: layout[v.layout]
                 }
-                if (v.redirect) {
-                    var o = {
-                        title: v.title
+                if (v.config && v.config.redirect) {
+                    for (var k in v.config.redirect) {
+                        var o = {}
+                        o[k] = v.config.redirect[k]
+                        router.redirect(o)
                     }
-                    o[parentRouter + r] = v.redirect
-                    router.redirect(o)
                 }
             })
         } else {
@@ -52,12 +52,12 @@ function syncRouters(data) {
                     title: v.title,
                     component: layout[v.layout]
                 }
-                if (v.redirect) {
-                    var o = {
-                        title: v.title
+                if (v.config && v.config.redirect) {
+                    for (var k in v.config.redirect) {
+                        var o = {}
+                        o[k] = v.config.redirect[k]
+                        router.redirect(o)
                     }
-                    o[r] = v.redirect
-                    router.redirect(o)
                 }
             })
         }

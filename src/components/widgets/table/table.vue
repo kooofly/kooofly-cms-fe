@@ -25,7 +25,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th v-for="key in attrs.columns"
+            <th v-for="key in columns"
                 @click="sortBy(key.field)"
                 class="{{key.className}}" :class="{active: sortKey == key.field}" >
                 {{key.name}}
@@ -40,7 +40,7 @@
         entry in model
         | filterBy filterKey
         | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in attrs.columns" :class="key.className">
+            <td v-for="key in columns" :class="key.className">
                 <v-render :value="entry[key.field]" :row-data.sync="entry" :render="key.render"></v-render>
             </td>
         </tr>
@@ -56,15 +56,13 @@
     import store from '../../../common/store'
     export default {
         props: {
-            model: {},
             attrs: {
                 default: function () {
                     return {
-                        isAutoCol: true,
+                        model: [],
                         module: null,
-                        columns: [],
-                        filterKey: '',
-                        query: store.state.mainQuery
+                        columns: '',
+                        query: '' //store.state.mainQuery
                     }
                 }
             }
@@ -74,7 +72,11 @@
                 widgetId: 'table',
                 sortOrders: {},
                 sortKey: '',
-                filterKey: ''
+                filterKey: '',
+                columns: [],
+                query: {},
+                model: [],
+                uri: ''
             }
         },
         watch: {
@@ -87,7 +89,7 @@
                 this.$set('sortKey', '')
                 this.$set('sortOrders', sortOrders)
             },
-            'attrs.query': {
+            query: {
                 deep: true,
                 handler: function (newVal) {
                     this.render()
@@ -95,17 +97,14 @@
             }
         },
         ready () {
-            this.attrs.isAutoCol && this.autoInit()
-            this.render()
-            this.$on('search', function (m) {
-                console.log(m)
-            })
+            this.autoInit()
         },
         methods: {
             autoInit: function () {
-                this.attrs.columns = util.getWidgetModule.call(this, 'l_columns')
+                this.query = util.getWidgetConfig.call(this, this.attrs.query)
+                this.columns = util.getWidgetConfig.call(this, this.attrs.columns)
                 // 资源名 = 模块名
-                this.attrs.uri = util.getWidgetModule.call(this, 'moduleName')
+                this.attrs.uri = util.getWidgetConfig.call(this, this.attrs.uri)
             },
             render: function () {
                 var self = this

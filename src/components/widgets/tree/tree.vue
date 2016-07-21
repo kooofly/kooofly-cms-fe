@@ -15,7 +15,6 @@
     import store from '../../../common/store'
     import util from '../../../common/base/base'
     export default {
-        name: 'tree',
         props: {
             attrs: {
                 type: Object,
@@ -31,24 +30,34 @@
                 treeData: []
             }
         },
+        computed: {
+            query: function () {
+                return {
+                    parentId: store.state.activeNav._id
+                }
+            }
+        },
         watch: {
             model: function(newVal) {
-                var treeData = this.dataTranslater(newVal, { root: this.parentId() })
+                var treeData = this.dataTranslater(newVal, { root: this.query.parentId })
                 this.$set('treeData', treeData)
+            },
+            'query._id': function () {
+                this.render()
             }
         },
         ready () {
-            var self = this
-            this.attrs.query = {
-                parentId: this.parentId()
-            }
-            util.getWidgetData.call(this).then(function (data) {
-                var menu = data
-                store.dispatch('MENU', menu)
-                self.$set('model', menu)
-            })
+            this.render()
         },
         methods: {
+            render: function () {
+                var self = this
+                util.getWidgetData.call(this).then(function (data) {
+                    var menu = data
+                    // store.dispatch('MENU', menu)
+                    self.$set('model', menu)
+                })
+            },
             dataTranslater: function(data, option) {
                 if(!data) return [];
                 var _newData = []; //最终返回结果
@@ -74,10 +83,6 @@
                     return $children;
                 }
                 return _newData;
-            },
-            parentId: function () {
-                return '578cade4694b6ae84000009f'
-                return (store.state.activeNav && store.state.activeNav.parentId) ? store.state.activeNav.parentId : null
             }
         },
         components: {

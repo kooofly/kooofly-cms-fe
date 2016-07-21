@@ -1,3 +1,9 @@
+配置中的特殊符号说明：
+@xyz 表示请求xyz链接
+#mainQuery 表示等于全局变量 store.mainQuery
+$abc 表示等于前端配置 config[:module].abc
+
+
 图片服务器
 数据库服务器
 后端服务器

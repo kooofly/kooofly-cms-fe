@@ -9,31 +9,41 @@
 </template>
 <script>
     import util from '../../common/base/base'
-    import store from '../../common/store'
     export default {
         props: {
             attrs: {
                 default: function () {
                     return {
                         maxItem: 7, //奇数
-                        _limit: 10,
-                        _page: 1, // current_page
-                        total: store.state.mainTotal
+                        total: '',
+                        query: {
+                            _limit: 10,
+                            _page: 1, // current_page
+                        }
                     }
                 }
             }
         },
         data () {
             return {
+                total: '',
                 widgetId: 'pagination',
-                query: store.state.mainQuery
+                maxItem: 7,
+                query: {}
             }
+        },
+        ready: function () {
+            if (this.attrs.query) {
+                this.query = util.getWidgetConfig.call(this, this.attrs.query)
+            }
+            this.attrs.maxItem && (this.maxItem = this.attrs.maxItem)
+            this.attrs.total && (this.total = util.getWidgetConfig.call(this, this.attrs.total))
         },
         computed: {
             items () {
-                if(!this.attrs.total) return
+                if(!this.total) return
                 var result = []
-                var count = Math.ceil(this.attrs.total / this.query._limit)
+                var count = Math.ceil(this.total / this.query._limit)
                 if (count <= this.attrs.maxItem) {
                     console.log(1)
                     for (var i = 1; i <= count; i++) {
@@ -83,13 +93,10 @@
                 return result
             },
             count () {
-                if(!this.attrs.total) return null
-                var count = Math.ceil(this.attrs.total / this.query._limit)
+                if(!this.total) return null
+                var count = Math.ceil(this.total / this.query._limit)
                 return count
             }
-        },
-        ready: function () {
-            
         },
         methods: {
             go_page (index) {
