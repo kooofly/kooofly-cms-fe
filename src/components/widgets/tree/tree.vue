@@ -42,7 +42,8 @@
                 var treeData = this.dataTranslater(newVal, { root: this.query.parentId })
                 this.$set('treeData', treeData)
             },
-            'query._id': function () {
+            'query.parentId': function () {
+                console.log(113)
                 this.render()
             }
         },

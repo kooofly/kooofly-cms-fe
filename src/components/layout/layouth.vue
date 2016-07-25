@@ -45,27 +45,37 @@
                 widgetsMain: null
             }
         },
+        watch: {
+            '$route.path': function () {
+                this.load()
+            }
+        },
         ready () {
-            // 异步请求 可以让后端控制权限
-            var self = this
-            var resource = this.$resource(config.page)
-            resource.get({
-                _single: 1,
-                layout: 'LayoutH',
-                router: self.$route.fullPath
-            }).then(function (res) {
-                self.config = res.data.config
-                self.widgetsMain = (function (index) {
-                    var result = []
-                    var widgets = res.data.config.widgets
-                    for (var i = index, j = widgets.length; i < j; i++) {
-                        var o = widgets[i];
-                        result.push(o)
-                    }
-                    return result
-                })(3)
-                store.dispatch('PAGEID', res.data._id)
-            })
+            this.load()
+        },
+        methods: {
+            load: function () {
+                // 异步请求 可以让后端控制权限
+                var self = this
+                var resource = this.$resource(config.page)
+                resource.get({
+                    _single: 1,
+                    layout: 'LayoutH',
+                    router: self.$route.fullPath
+                }).then(function (res) {
+                    self.config = Object.assign({},res.data.config)
+                    self.widgetsMain = (function (index) {
+                        var result = []
+                        var widgets = res.data.config.widgets
+                        for (var i = index, j = widgets.length; i < j; i++) {
+                            var o = widgets[i];
+                            result.push(o)
+                        }
+                        return result
+                    })(3)
+                    store.dispatch('PAGEID', res.data._id)
+                })
+            }
         },
         components: {
             VWidget

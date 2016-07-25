@@ -39,21 +39,44 @@
                 return store.state.activeNav
             }
         },
+        watch: {
+            '$route.path': function (newVal) {
+                this.render()
+            }
+        },
         ready () {
-            var self = this
-            util.getWidgetData.call(this).then(function(data) {
-                var nav = []
-                var module = util.getWidgetConfig.call(self, self.module)
-                data.forEach(function(v, i) {
-                    if(!v.parentId){
-                        if (v.alias === module || v._id  === module) {
-                            store.dispatch('ACTIVENAV', v)
+            this.render()
+        },
+        methods: {
+
+            render: function () {
+                var self = this
+                if (self.model && self.model.length) {
+                    var module = util.getWidgetConfig.call(self, self.module)
+                    self.model.forEach(function(v, i) {
+                        if(!v.parentId){
+                            if (v.alias === module || v._id  === module) {
+                                store.dispatch('ACTIVENAV', v)
+                            }
                         }
-                        nav.push(v)
-                    }
-                })
-                self.$set('model', nav)
-            })
+                    })
+                } else {
+                    util.getWidgetData.call(this).then(function(data) {
+                        var nav = []
+                        var module = util.getWidgetConfig.call(self, self.module)
+                        data.forEach(function(v, i) {
+                            if(!v.parentId){
+                                if (v.alias === module || v._id  === module) {
+                                    store.dispatch('ACTIVENAV', v)
+                                }
+                                nav.push(v)
+                            }
+                        })
+                        self.$set('model', nav)
+                    })
+                }
+
+            },
         }
     }
 </script>
