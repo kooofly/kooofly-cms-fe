@@ -65,7 +65,7 @@ function syncRouters(data) {
     })
     return result
 }
-Vue.http(config.page + '?_projection=router,title,layout,config.parentRouter,config.redirect').then(function(res) {
+Vue.http(config.page + '?isEnable=true&_projection=router,title,layout,config.parentRouter,config.redirect').then(function(res) {
     var data = res.data
     common.mix(routers, syncRouters(data))
     common.mix(routers, {

@@ -43,7 +43,6 @@
                 this.$set('treeData', treeData)
             },
             'query.parentId': function () {
-                console.log(113)
                 this.render()
             }
         },
@@ -54,7 +53,15 @@
             render: function () {
                 var self = this
                 util.getWidgetData.call(this).then(function (data) {
-                    var menu = data
+                    var menu = (function() {
+                        var result = []
+                        data.forEach(function(v, i) {
+                            var link = '/'+ 'sadmin/' + store.state.activeNav.alias + '/' + (v.alias ? v.alias : v._id)
+                            v.link = v.link || link
+                            result.push(v)
+                        })
+                        return result
+                    })()
                     // store.dispatch('MENU', menu)
                     self.$set('model', menu)
                 })
