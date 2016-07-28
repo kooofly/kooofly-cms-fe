@@ -1,7 +1,7 @@
 <template>
     <div class="panel form">
         <div class="title">
-            新建/编辑 {{renderData.name}}
+            {{attrs.action === "update" ? "编辑" : "新增"}} {{renderData.name}}
         </div>
         <div class="body">
             <v-controls v-for="item in renderData.fields" :attrs="item" :model.sync="model[item.name]"></v-controls>
