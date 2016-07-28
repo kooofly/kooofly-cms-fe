@@ -50,7 +50,6 @@ export default {
             ],
             // 简单搜索配置，暂时只支持一个
             searchHolder: '名称',
-
             /*searchKey: {
                 placeholder: '名称',
                 name: 'title'

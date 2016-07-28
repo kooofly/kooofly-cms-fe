@@ -16,3 +16,4 @@ html,body{ height: 100%; }
 #sadmin .search-admin .panel{ margin-bottom: 0; }
 #sadmin .pagination{ text-align: right; background: #fff; padding: 10px; display: block; line-height: 1; }
 #sadmin .pagination .inner{ display: inline-block; }
+#sadmin .btn-group{ border-top: 1px solid #f1f1f1; padding: 10px 15px; }

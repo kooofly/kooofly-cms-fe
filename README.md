@@ -2,7 +2,7 @@
 @xyz 表示请求xyz链接
 #mainQuery 表示等于全局变量 store.mainQuery
 $abc 表示等于前端配置 config[:module].abc
-
+&mainModule 表示等于 $route.mainModule || $route.params.mainModule
 
 图片服务器
 数据库服务器

@@ -37,7 +37,6 @@
 </template>
 <script>
     import VControls from '../controls/_index.vue'
-    import util from '../../common/base/base'
     export default {
         props: {
             attrs: {
@@ -75,7 +74,7 @@
         ready: function () {
             var attrs = this.attrs
             for (var k in attrs) {
-                this[k] = util.getWidgetConfig.call(this, attrs[k])
+                this[k] = attrs[k]
             }
         },
         methods: {

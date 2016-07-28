@@ -34,10 +34,10 @@
         },
         ready: function () {
             if (this.attrs.query) {
-                this.query = util.getWidgetConfig.call(this, this.attrs.query)
+                this.query = this.attrs.query
             }
             this.attrs.maxItem && (this.maxItem = this.attrs.maxItem)
-            this.attrs.total && (this.total = util.getWidgetConfig.call(this, this.attrs.total))
+            this.attrs.total && (this.total = this.attrs.total)
         },
         computed: {
             items () {

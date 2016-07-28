@@ -47,7 +47,7 @@
             }
         },
         ready () {
-            this.render()
+            //this.render()
         },
         methods: {
             render: function () {
@@ -59,6 +59,9 @@
                             var link = '/'+ 'sadmin/' + store.state.activeNav.alias + '/' + (v.alias ? v.alias : v._id)
                             v.link = v.link || link
                             result.push(v)
+                            if (self.$route.path === link) {
+                                store.dispatch('MENU', v)
+                            }
                         })
                         return result
                     })()

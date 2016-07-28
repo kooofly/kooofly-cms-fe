@@ -1,40 +1,36 @@
+<style>
+    .btn-group{ padding: 15px; }
+</style>
 <template>
     <div class="btn-group">
-        <span>
-       <a v-if="parentId" v-link="{ path: '/admin/' + this.$route.params.module + '/' + parentId + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
-    <a v-else v-link="{ path: module + '/create' }" class="btn btn-primary btn-radius">{{ '新增' | addText }}</a>
-    </span>
+        <v-btns v-for="item in attrs" :attrs="item | config"></v-btns>
     </div>
 </template>
 <script>
-    import store from '../../common/store'
+    import VBtns from './btns/_index.vue'
+    import util from '../../../common/base/base'
     export default {
         props: {
             attrs: {
-                type: Object,
+                type: Array,
                 default: function () {
-                    return {}
+                    return []
                 }
             }
         },
-        data () {
-            return {
-                parentId: this.$route.params.id,
-                module: this.$route.params.module
-            }
+        components: {
+            VBtns
         },
         filters: {
-            addText (v) {
-                var module = this.$route.params.module
-                var menu = store.state.menu
-                if(menu && menu.length) {
-                    for (var i = 0, j = menu.length; i < j; i++) {
-                        if(menu[i].alias === module) {
-                            return v + menu[i].name.replace('管理', '')
-                        }
-                    }
-                    return v
+            config: function (v) {
+                var o = {
+                    widget: v.widget,
+                    params: {}
                 }
+                for (var k in v.params) {
+                    o.params[k] = util.getWidgetConfig.call(this, v.params[k])
+                }
+                return o
             }
         }
     }

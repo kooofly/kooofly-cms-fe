@@ -1,8 +1,21 @@
 "use strict";
 import config from '../config'
 import store from '../store'
-
+function searchPath (apis, pathKeys) {
+    var path
+    var waitingForSearch
+    if (!pathKeys.length) return apis
+    path = pathKeys[0]
+    waitingForSearch = apis[path]
+    if (waitingForSearch) {
+        pathKeys.shift()
+        return searchPath(waitingForSearch, pathKeys)
+    } else {
+        return null
+    }
+}
 export default {
+    searchPath: searchPath,
     mix: function(o) {
         var i = 1,
             l = arguments.length
@@ -249,11 +262,12 @@ export default {
         if (typeof v === 'string') {
             if (/#/.test(v)) {
                 var key = v.replace('#', '')
-                result = store.state[key]
+
+                result = searchPath(store.state, key.split('.'))
             } else if (/\$/.test(v)) {
                 var m = /&/.test(this.attrs.module) ? (this.$route[key] || this.$route.params[key] || this.$route.params['module']) : (this.attrs.module || this.$route.params['module'])
                 var key = v.replace('$', '')
-                result = config['module'] && config['module'][m] ? config['module'][m][key] : ''
+                result = config['module'] && config['module'][m] ? searchPath(config['module'][m], key.split('.')) : ''
             } else if (/&/.test(v)) {
                 var key = v.replace('&', '')
                 result = this.$route[key] || this.$route.params[key] || this.$route.params['module']

@@ -101,10 +101,8 @@
         },
         methods: {
             autoInit: function () {
-                this.query = util.getWidgetConfig.call(this, this.attrs.query)
-                this.columns = util.getWidgetConfig.call(this, this.attrs.columns)
-                // 资源名 = 模块名
-                this.attrs.uri = util.getWidgetConfig.call(this, this.attrs.uri)
+                this.query = this.attrs.query
+                this.columns = this.attrs.columns
             },
             render: function () {
                 var self = this
