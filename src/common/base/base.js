@@ -90,7 +90,6 @@ export default {
     routerBeforeEach: function(router) {
         var self = this;
         router.beforeEach(function (transition) {
-
             var toPath = transition.to.path,
                 fromPath = transition.from.path
             //app 检测  不同的.html文件代表不同的app

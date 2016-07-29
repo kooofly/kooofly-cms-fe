@@ -42,12 +42,22 @@
                 var treeData = this.dataTranslater(newVal, { root: this.query.parentId })
                 this.$set('treeData', treeData)
             },
-            'query.parentId': function () {
+            'query.parentId': function (newVal, oldVal) {
                 this.render()
+            },
+            '$route': function () {
+                var self = this
+                this.model.forEach(function (v) {
+                    if (self.$route.path === v.link) {
+                        store.dispatch('MENU', v)
+                    }
+                })
             }
         },
         ready () {
-            //this.render()
+            if (this.query.parentId) {
+                this.render()
+            }
         },
         methods: {
             render: function () {
