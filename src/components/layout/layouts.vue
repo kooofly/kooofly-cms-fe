@@ -43,7 +43,9 @@
             resource.get({
                 _single: 1,
                 layout: 'LayoutS',
-                router: self.$route.fullPath
+                router: {
+                    $regex: self.$route.fullPath
+                }
             }).then(function (res) {
                 self.config = res.data.config
                 self.widgetsMain = (function (index) {

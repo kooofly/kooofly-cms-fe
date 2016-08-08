@@ -1,4 +1,4 @@
-<style type="text/css">
+<style>
     .page-h .layout-left{ padding-right: 0; }
     .page-h .layout-left .layout-wrapper{ padding-right: 0; width: 240px; }
     .page-h .layout{ margin-top: 0; }
@@ -61,7 +61,9 @@
                 resource.get({
                     _single: 1,
                     layout: 'LayoutH',
-                    router: self.$route.fullPath
+                    router: {
+                        $regex: self.$route.fullPath
+                    }
                 }).then(function (res) {
                     self.config = Object.assign({},res.data.config)
                     self.widgetsMain = (function (index) {

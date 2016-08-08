@@ -44,14 +44,6 @@
             },
             'query.parentId': function (newVal, oldVal) {
                 this.render()
-            },
-            '$route': function () {
-                var self = this
-                this.model.forEach(function (v) {
-                    if (self.$route.path === v.link) {
-                        store.dispatch('MENU', v)
-                    }
-                })
             }
         },
         ready () {

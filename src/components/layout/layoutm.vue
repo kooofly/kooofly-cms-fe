@@ -22,7 +22,9 @@
             resource.get({
                 _single: 1,
                 layout: 'LayoutM',
-                router: self.$route.fullPath
+                router: {
+                    $regex: self.$route.fullPath
+                }
             }).then(function (res) {
                 self.config = res.data.config
                 store.dispatch('PAGEID', res.data._id)

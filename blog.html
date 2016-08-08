@@ -7,5 +7,78 @@
 <body>
 <app></app>
 <script src="output/blog.js"></script>
+
+<script type="text/x-handlebars-template">
+    <li class="item">
+        <img class="preview" data-dz-thumbnail>
+        <div class="name tof" data-dz-name></div>
+        <div class="handler">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
+            </div>
+        </div>
+    </li>
+
+    <div class="uploadM">
+        <div class="model">
+            <span v-for="image in images" class="pull-left item">
+                <img :src="image.compressFileId" alt="">
+                <i @click="deleteImage(image)" class="fa fa-times-circle text-danger"></i>
+            </span>
+        </div>
+        <a class="control-upload-btn" @click="upManager()" href="javascript:;"><i class="fa icon fa-plus"></i></a>
+        <upload-manager></upload-manager>
+    </div>
+
+    <div id="upload-modal" v-if="show">
+        <div class="layer"></div>
+        <div class="uploadManager">
+            <div class="panel">
+                <div class="panel-heading">
+                    <span class="title">{{selected ? selected : '所有文件'}}</span>
+                    <div class="input-group search">
+                        <input type="text" v-model="q" class="form-control">
+							<span class="input-group-btn">
+								<button class="btn" @click="searchImagesByQ()" type="button">搜索</button>
+							</span>
+                    </div>
+                    <i @click="close()" class="close fa fa-times-circle"></i>
+                </div>
+                <div class="panel-body wrap">
+                    <div class="clearix">
+                        <ul class="groups pull-left">
+                            <li class="item" :class="!selected && 'active'" @click="selectGroup('all')">所有</li>
+                            <li @click="selectGroup($index)" class="item" :class="v.selected && 'active'" v-for="v in group">
+                                <span class="name">{{v.filesName}}</span>
+                            </li>
+                        </ul>
+                        <div class="pull-left main">
+                            <ul id="dz-list" class="list clearfix">
+                                <li class="item">
+                                    <a class="control-add" href="javascript:;"><i class="icon fa fa-plus"></i></a>
+                                </li>
+                                <li id="previewsContainer"></li>
+                                <li v-for="image in model" class="item" :class="image.selected && 'selected'">
+                                    <img @click="selectedImage($index)" :src="image.compressFileId" alt="">
+                                    <span class="ratio">{{image.width}} * {{image.height}}</span>
+                                    <div class="name tof">
+                                        <span>{{image.pictureName}}</span>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <div id="pagination-upload" class="clearfix wrap-p">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                    <button @click="selectDone()" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 </body>
 </html>
