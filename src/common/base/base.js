@@ -291,8 +291,15 @@ export default {
          return result
     },
     getParantPath: function () {
+        // TODO delete this.$route.params.parentPath
         var fullPath = this.$route.params.parentPath || this.$route.fullPath
-        return fullPath.replace('/:module', '')
+        var result
+        if (this.$route.params.parentModule) {
+            result = fullPath.replace('/:module', '').replace(':parentModule', this.$route.params.parentModule)
+        } else {
+            result = fullPath.replace('/:module', '')
+        }
+        return result
     },
     getModule: function (modelArea, inst) {
         var result = inst.$route.params.module

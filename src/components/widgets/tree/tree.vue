@@ -27,7 +27,8 @@
         data () {
             return {
                 widgetId: 'tree',
-                treeData: []
+                treeData: [],
+                module: '&module'
             }
         },
         computed: {
@@ -44,6 +45,9 @@
             },
             'query.parentId': function (newVal, oldVal) {
                 this.render()
+            },
+            '$route.path': function (newVal) {
+                this.setVuexMenu()
             }
         },
         ready () {
@@ -70,6 +74,17 @@
                     // store.dispatch('MENU', menu)
                     self.$set('model', menu)
                 })
+            },
+            setVuexMenu: function () {
+                var self = this
+                if (self.model && self.model.length) {
+                    var module = util.getWidgetConfig.call(self, self.module)
+                    self.model.forEach(function(v, i) {
+                        if (v.alias === module || v._id  === module) {
+                            store.dispatch('MENU', v)
+                        }
+                    })
+                }
             },
             dataTranslater: function(data, option) {
                 if(!data) return [];

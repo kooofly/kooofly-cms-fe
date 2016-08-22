@@ -35,6 +35,7 @@
         },
         ready () {
             var self = this
+            this.initAction()
             this.$http.get({
                 url: this.attrs.uri || config.modelUri + this.attrs.module + "&_single=1"
             }).then(function (res) {
@@ -53,7 +54,8 @@
                 data.fields = array
                 self.renderData = data
             })
-            if(this.attrs.action === 'update') {
+            if (this.attrs.action === 'update') {
+                var module = util.getModule('main', this)
                 this.$http.get({
                     url: this.attrs.modelUri || util.getUri.call(this, module, 'c_update_model', '?_single=1'),
                     data: {
@@ -76,13 +78,17 @@
             }
         },
         methods: {
+            initAction () {
+                var action = /update/g.test(this.$route.fullPath) ? 'update' : 'create'
+                this.attrs.action = action
+            },
             execAction () {
                 var module = this.$route.params.module
                 // config.apiRoot + module
                 var resource = this.attrs.action !== 'update' ?
                         this.$resource(util.getUri.call(this, module, 'c_create')) :
                         this.$resource(util.getUri.call(this, module, 'c_update') + '?_id=' + this.$route.params.id)
-                resource[this.action](this.model).then(function (res) {
+                resource[this.attrs.action](this.model).then(function (res) {
                     console.log('success', res)
                 }, function (res) {
                     console.log('error', res)

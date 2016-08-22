@@ -103,7 +103,7 @@
         watch: {
             model: function (newVal) {
                 var self = this
-                if (newVal && newVal.widgets.length) {
+                if (newVal && newVal.widgets && newVal.widgets.length) {
                     var widgets = newVal.widgets
                     widgets.forEach(function () {
                         self.helpers.push(Object.assign({}, self.defaultHelper))
